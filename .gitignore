@@ -5,7 +5,6 @@ __pycache__/
 .chrome-headless/
 .vendorpy/
 .measurement_tests/
-html/
 relatorio_atividade_teste_estrutural_assets/
 
 *.pdf

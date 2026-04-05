@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CFG — tabelaHash.py.TabelaHashSondagemLinear.funcao_hash -- 2</title>
+<style>
+  :root {
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", "Noto Sans", "Liberation Sans", sans-serif;
+    --bg: #0b0d10;
+    --panel: #12161c;
+    --text: #e6edf3;
+    --muted: #9fb0c0;
+    --border: #263040;
+    --link: #7cc7ff;
+    --codebg: #0f1318;
+  }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { padding: 16px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .muted { color: var(--muted); }
+  pre, code { font-family: var(--mono); }
+  pre {
+    background: var(--codebg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    overflow: auto;
+    line-height: 1.35;
+    font-size: 13px;
+    margin: 0;
+  }
+  .btn {
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #0f1318;
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
+  }
+  .btn:hover { filter: brightness(1.1); }
+</style>
+
+</head>
+<body>
+
+<div class="wrap">
+  <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px; flex-wrap: wrap;">
+    <a href="index.html">← Back</a>
+    <span class="muted">tabelaHash.py</span>
+    <span style="opacity:.4;">|</span>
+    <strong>tabelaHash.py.TabelaHashSondagemLinear.funcao_hash -- 2</strong>
+  </div>
+
+  <div class="grid">
+    <div class="codepanel card">
+      <div class="toolbar">
+        <span class="muted">Source</span>
+      </div>
+      <pre>def funcao_hash(self, chave):
+    &quot;&quot;&quot;
+        FunÃ§Ã£o de hash manual e previsÃ\xadvel.
+
+        Ideia:
+        - se a chave for string, somamos os cÃ³digos ASCII dos caracteres;
+        - se a chave for inteiro, usamos o prÃ³prio valor;
+        - caso contrÃ¡rio, convertemos para string e somamos os caracteres.
+
+        Isso NÃƒO Ã© ideal para uso real, mas Ã© Ã³timo para ensino,
+        porque permite prever facilmente onde cada chave serÃ¡ mapeada.
+        &quot;&quot;&quot;
+    if isinstance(chave, int):
+        return chave % self.capacidade
+    if isinstance(chave, str):
+        soma = 0
+        for caractere in chave:
+            soma += ord(caractere)
+        return soma % self.capacidade
+    soma = 0
+    for caractere in str(chave):
+        soma += ord(caractere)
+    return soma % self.capacidade</pre>
+    </div>
+
+    
+<div class="graphpanel card">
+  <div class="toolbar">
+    <span class="muted">CFG (.dot)</span>
+  </div>
+  <div class="graphsplit">
+    <pre>digraph { 
+0 [tooltip=&quot;\&#x27;\n        FunÃ§Ã£o de hash manual e previsÃ\xadvel.\n\n        Ideia:\n        - se a chave for string, somamos os cÃ³digos ASCII dos caracteres;\n        - se a chave for inteiro, usamos o prÃ³prio valor;\n        - caso contrÃ¡rio, convertemos para string e somamos os caracteres.\n\n        Isso NÃƒO Ã© ideal para uso real, mas Ã© Ã³timo para ensino,\n        porque permite prever facilmente onde cada chave serÃ¡ mapeada.\n        \&#x27;
+&quot;,color=green,label=&quot;0 BB
+Expr (+0)&quot;]
+1 [tooltip=&quot;if isinstance(chave, int):
+    return chave % self.capacidade
+&quot;,color=green,label=&quot;1 IF
+If (+0)&quot;]
+2 [tooltip=&quot;return chave % self.capacidade
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;2 THEN
+Return (+0)&quot;]
+4 [tooltip=&quot;if isinstance(chave, str):
+    soma = 0
+    for caractere in chave:
+        soma += ord(caractere)
+    return soma % self.capacidade
+&quot;,color=green,label=&quot;4 IF
+If (+0)&quot;]
+5  [tooltip=&quot;isinstance(chave, int)&quot;,color=green,label=&quot;5 COND
+isinstance(chave, int)&quot;]
+7 [tooltip=&quot;soma = 0
+&quot;,color=green,label=&quot;7 THEN
+Assign (+0)&quot;]
+9 [tooltip=&quot;soma = 0
+&quot;,color=green,label=&quot;9 JOIN
+Assign (+0)&quot;]
+10  [tooltip=&quot;isinstance(chave, str)&quot;,color=green,label=&quot;10 COND
+isinstance(chave, str)&quot;]
+11 [tooltip=&quot;for caractere in chave:
+    soma += ord(caractere)
+&quot;,color=green,label=&quot;11 FOR_PRE
+For (+0)&quot;]
+12 [tooltip=&quot;&quot;,color=green,label=&quot;12 FOR_ITER
+For (+0)&quot;]
+13 [tooltip=&quot;soma += ord(caractere)
+&quot;,color=green,label=&quot;13 FOR_BODY
+AugAssign (+0)&quot;]
+14 [tooltip=&quot;return soma % self.capacidade
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;14 FOR_AFTER
+Return (+0)&quot;]
+16 [tooltip=&quot;for caractere in str(chave):
+    soma += ord(caractere)
+&quot;,color=green,label=&quot;16 FOR_PRE
+For (+0)&quot;]
+17 [tooltip=&quot;&quot;,color=green,label=&quot;17 FOR_ITER
+For (+0)&quot;]
+18 [tooltip=&quot;soma += ord(caractere)
+&quot;,color=green,label=&quot;18 FOR_BODY
+AugAssign (+0)&quot;]
+19 [tooltip=&quot;return soma % self.capacidade
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;19 FOR_AFTER
+Return (+0)&quot;]
+0 -&gt; 1 [label=&quot;&quot;,color=green]
+5 -&gt; 2 [label=&quot;T&quot;,color=green]
+1 -&gt; 5 [label=&quot;cond&quot;,color=green]
+10 -&gt; 7 [label=&quot;T&quot;,color=green]
+4 -&gt; 10 [label=&quot;cond&quot;,color=green]
+7 -&gt; 11 [label=&quot;&quot;,color=green]
+11 -&gt; 12 [label=&quot;for:iter&quot;,color=green]
+12 -&gt; 13 [label=&quot;Next&quot;,color=green]
+13 -&gt; 12 [label=&quot;next&quot;,color=green]
+12 -&gt; 14 [label=&quot;Not_Next&quot;,color=red]
+13 -&gt; 14 [label=&quot;No_Next&quot;,color=green]
+9 -&gt; 16 [label=&quot;&quot;,color=green]
+16 -&gt; 17 [label=&quot;for:iter&quot;,color=green]
+17 -&gt; 18 [label=&quot;Next&quot;,color=green]
+18 -&gt; 17 [label=&quot;next&quot;,color=green]
+17 -&gt; 19 [label=&quot;Not_Next&quot;,color=red]
+18 -&gt; 19 [label=&quot;No_Next&quot;,color=green]
+5 -&gt; 4 [label=&quot;&quot;,color=green]
+10 -&gt; 9 [label=&quot;&quot;,color=green]
+}
+</pre>
+    <div class="covpanel">
+<div class="covgroup">
+  <div class="covtitle">Blocks</div>
+  <div><span class="covlabel">Covered:</span> 0, 1, 2, 4, 5, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Edges</div>
+  <div><span class="covlabel">Covered:</span> (0, 1), (5, 2), (1, 5), (10, 7), (4, 10), (7, 11), (11, 12), (12, 13), (13, 12), (13, 14), (9, 16), (16, 17), (17, 18), (18, 17), (18, 19), (5, 4), (10, 9)</div>
+  <div><span class="covlabel">Missed:</span> (12, 14), (17, 19)</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Essential arcs</div>
+  <div><span class="covlabel">Covered:</span> (13, 12), (13, 14), (18, 17), (18, 19), (5, 2)</div>
+  <div><span class="covlabel">Missed:</span> (12, 14), (17, 19)</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Edge Pairs</div>
+  <div><span class="covlabel">Covered:</span> (0, 1, 5), (1, 5, 2), (1, 5, 4), (10, 7, 11), (10, 9, 16), (11, 12, 13), (12, 13, 12), (12, 13, 14), (13, 12, 13), (16, 17, 18), (17, 18, 17), (17, 18, 19), (18, 17, 18), (4, 10, 7), (4, 10, 9), (5, 4, 10), (7, 11, 12), (9, 16, 17)</div>
+  <div><span class="covlabel">Missed:</span> (11, 12, 14), (13, 12, 14), (16, 17, 19), (18, 17, 19)</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Prime Paths</div>
+  <div><span class="covlabel">Covered:</span> (0, 1, 5, 2), (0, 1, 5, 4, 10, 7, 11, 12, 13), (0, 1, 5, 4, 10, 9, 16, 17, 18), (12, 13, 12), (13, 12, 13), (13, 14), (17, 18, 17), (18, 17, 18), (18, 19)</div>
+  <div><span class="covlabel">Missed:</span> (0, 1, 5, 4, 10, 7, 11, 12, 14), (0, 1, 5, 4, 10, 9, 16, 17, 19)</div>
+</div>
+</div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 1000px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  .toolbar {
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .codepanel, .graphpanel { overflow: hidden; }
+  .graphsplit {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 0;
+    align-items: start;
+  }
+  @media (max-width: 1200px) {
+    .graphsplit {
+      grid-template-columns: 1fr;
+    }
+  }
+  .viewport {
+    height: calc(100vh - 185px);
+    overflow: auto;
+    padding: 10px;
+  }
+  .canvas {
+    transform-origin: 0 0;
+  }
+  .canvas svg {
+    max-width: none;
+    height: auto;
+  }
+  .toolbuttons { display:flex; gap:8px; }
+  .covpanel {
+    border-left: 1px solid var(--border);
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 1200px) {
+    .covpanel {
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+  }
+  .covgroup + .covgroup {
+    margin-top: 18px;
+  }
+  .covtitle {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .covlabel {
+    display: inline-block;
+    min-width: 72px;
+    color: var(--text);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  let scale = 1.0;
+  function applyScale() {
+    const el = document.getElementById('graphCanvas');
+    if (!el) return;
+    el.style.transform = 'scale(' + scale.toFixed(3) + ')';
+  }
+  function zoomIn() { scale = Math.min(6.0, scale * 1.15); applyScale(); }
+  function zoomOut() { scale = Math.max(0.2, scale / 1.15); applyScale(); }
+  function zoomReset() { scale = 1.0; applyScale(); }
+
+  function onWheelZoom(ev) {
+    if (!ev.ctrlKey) return;
+    ev.preventDefault();
+    const delta = ev.deltaY;
+    if (delta < 0) zoomIn();
+    else zoomOut();
+  }
+  applyScale();
+</script>
+
+</body>
+</html>

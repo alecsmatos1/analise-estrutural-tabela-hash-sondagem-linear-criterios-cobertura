@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CFG — tabelaHash.py.TabelaHashSondagemLinear.itens -- 10</title>
+<style>
+  :root {
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", "Noto Sans", "Liberation Sans", sans-serif;
+    --bg: #0b0d10;
+    --panel: #12161c;
+    --text: #e6edf3;
+    --muted: #9fb0c0;
+    --border: #263040;
+    --link: #7cc7ff;
+    --codebg: #0f1318;
+  }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { padding: 16px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .muted { color: var(--muted); }
+  pre, code { font-family: var(--mono); }
+  pre {
+    background: var(--codebg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    overflow: auto;
+    line-height: 1.35;
+    font-size: 13px;
+    margin: 0;
+  }
+  .btn {
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #0f1318;
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
+  }
+  .btn:hover { filter: brightness(1.1); }
+</style>
+
+</head>
+<body>
+
+<div class="wrap">
+  <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px; flex-wrap: wrap;">
+    <a href="index.html">← Back</a>
+    <span class="muted">tabelaHash.py</span>
+    <span style="opacity:.4;">|</span>
+    <strong>tabelaHash.py.TabelaHashSondagemLinear.itens -- 10</strong>
+  </div>
+
+  <div class="grid">
+    <div class="codepanel card">
+      <div class="toolbar">
+        <span class="muted">Source</span>
+      </div>
+      <pre>def itens(self):
+    &quot;&quot;&quot;
+        Devolve uma lista de pares (chave, valor) presentes na tabela.
+        &quot;&quot;&quot;
+    resultado = []
+    for entrada in self.tabela:
+        if entrada is not None and entrada is not REMOVIDO:
+            resultado.append(entrada)
+    return resultado</pre>
+    </div>
+
+    
+<div class="graphpanel card">
+  <div class="toolbar">
+    <span class="muted">CFG (.dot)</span>
+  </div>
+  <div class="graphsplit">
+    <pre>digraph { 
+0 [tooltip=&quot;\&#x27;\n        Devolve uma lista de pares (chave, valor) presentes na tabela.\n        \&#x27;
+resultado = []
+&quot;,color=green,label=&quot;0 BB
+Expr (+1)&quot;]
+1 [tooltip=&quot;for entrada in self.tabela:
+    if entrada is not None and entrada is not REMOVIDO:
+        resultado.append(entrada)
+&quot;,color=green,label=&quot;1 FOR_PRE
+For (+0)&quot;]
+2 [tooltip=&quot;&quot;,color=green,label=&quot;2 FOR_ITER
+For (+0)&quot;]
+3 [tooltip=&quot;if entrada is not None and entrada is not REMOVIDO:
+    resultado.append(entrada)
+&quot;,color=green,label=&quot;3 IF
+If (+0)&quot;]
+4 [tooltip=&quot;return resultado
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;4 FOR_AFTER
+Return (+0)&quot;]
+5 [tooltip=&quot;resultado.append(entrada)
+&quot;,color=green,label=&quot;5 THEN
+Expr (+0)&quot;]
+8  [tooltip=&quot;entrada is not REMOVIDO&quot;,color=green,label=&quot;8 COND
+entrada is not REMOVIDO&quot;]
+9  [tooltip=&quot;entrada is not None&quot;,color=green,label=&quot;9 COND
+entrada is not None&quot;]
+0 -&gt; 1 [label=&quot;&quot;,color=green]
+1 -&gt; 2 [label=&quot;for:iter&quot;,color=green]
+2 -&gt; 3 [label=&quot;Next&quot;,color=green]
+8 -&gt; 5 [label=&quot;T&quot;,color=green]
+9 -&gt; 8 [label=&quot;T&quot;,color=green]
+3 -&gt; 9 [label=&quot;cond&quot;,color=green]
+2 -&gt; 4 [label=&quot;Not_Next&quot;,color=red]
+5 -&gt; 2 [label=&quot;next&quot;,color=red]
+5 -&gt; 4 [label=&quot;No_Next&quot;,color=green]
+8 -&gt; 2 [label=&quot;next&quot;,color=green]
+8 -&gt; 4 [label=&quot;No_Next&quot;,color=red]
+9 -&gt; 2 [label=&quot;next&quot;,color=green]
+9 -&gt; 4 [label=&quot;No_Next&quot;,color=red]
+}
+</pre>
+    <div class="covpanel">
+<div class="covgroup">
+  <div class="covtitle">Blocks</div>
+  <div><span class="covlabel">Covered:</span> 0, 1, 2, 3, 4, 5, 8, 9</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Edges</div>
+  <div><span class="covlabel">Covered:</span> (0, 1), (1, 2), (2, 3), (8, 5), (9, 8), (3, 9), (5, 4), (8, 2), (9, 2)</div>
+  <div><span class="covlabel">Missed:</span> (2, 4), (5, 2), (8, 4), (9, 4)</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Essential arcs</div>
+  <div><span class="covlabel">Covered:</span> (5, 4), (8, 2), (9, 2)</div>
+  <div><span class="covlabel">Missed:</span> (2, 4), (5, 2), (8, 4), (9, 4)</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Edge Pairs</div>
+  <div><span class="covlabel">Covered:</span> (0, 1, 2), (1, 2, 3), (2, 3, 9), (3, 9, 2), (3, 9, 8), (8, 2, 3), (8, 5, 4), (9, 2, 3), (9, 8, 2), (9, 8, 5)</div>
+  <div><span class="covlabel">Missed:</span> (1, 2, 4), (3, 9, 4), (5, 2, 3), (5, 2, 4), (8, 2, 4), (8, 5, 2), (9, 2, 4), (9, 8, 4)</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Prime Paths</div>
+  <div><span class="covlabel">Covered:</span> (0, 1, 2, 3, 9), (2, 3, 9, 2), (2, 3, 9, 8, 2), (3, 9, 2, 3), (3, 9, 8, 2, 3), (3, 9, 8, 5, 4), (8, 2, 3, 9, 8), (9, 2, 3, 9), (9, 8, 2, 3, 9)</div>
+  <div><span class="covlabel">Missed:</span> (0, 1, 2, 3, 9, 8), (0, 1, 2, 3, 9, 8, 5), (0, 1, 2, 4), (2, 3, 9, 8, 5, 2), (3, 9, 4), (3, 9, 8, 4), (3, 9, 8, 5, 2, 3), (5, 2, 3, 9, 8, 5), (8, 5, 2, 3, 9, 8), (9, 2, 4), (9, 8, 2, 4), (9, 8, 5, 2, 3, 9), (9, 8, 5, 2, 4)</div>
+</div>
+</div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 1000px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  .toolbar {
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .codepanel, .graphpanel { overflow: hidden; }
+  .graphsplit {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 0;
+    align-items: start;
+  }
+  @media (max-width: 1200px) {
+    .graphsplit {
+      grid-template-columns: 1fr;
+    }
+  }
+  .viewport {
+    height: calc(100vh - 185px);
+    overflow: auto;
+    padding: 10px;
+  }
+  .canvas {
+    transform-origin: 0 0;
+  }
+  .canvas svg {
+    max-width: none;
+    height: auto;
+  }
+  .toolbuttons { display:flex; gap:8px; }
+  .covpanel {
+    border-left: 1px solid var(--border);
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 1200px) {
+    .covpanel {
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+  }
+  .covgroup + .covgroup {
+    margin-top: 18px;
+  }
+  .covtitle {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .covlabel {
+    display: inline-block;
+    min-width: 72px;
+    color: var(--text);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  let scale = 1.0;
+  function applyScale() {
+    const el = document.getElementById('graphCanvas');
+    if (!el) return;
+    el.style.transform = 'scale(' + scale.toFixed(3) + ')';
+  }
+  function zoomIn() { scale = Math.min(6.0, scale * 1.15); applyScale(); }
+  function zoomOut() { scale = Math.max(0.2, scale / 1.15); applyScale(); }
+  function zoomReset() { scale = 1.0; applyScale(); }
+
+  function onWheelZoom(ev) {
+    if (!ev.ctrlKey) return;
+    ev.preventDefault();
+    const delta = ev.deltaY;
+    if (delta < 0) zoomIn();
+    else zoomOut();
+  }
+  applyScale();
+</script>
+
+</body>
+</html>

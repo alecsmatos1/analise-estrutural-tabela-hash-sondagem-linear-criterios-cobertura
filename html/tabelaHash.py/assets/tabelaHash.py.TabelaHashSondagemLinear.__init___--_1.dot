@@ -1,0 +1,23 @@
+digraph { 
+0 [tooltip="\'\n        Cria uma tabela hash vazia com a capacidade indicada.\n        \'
+",color=green,label="0 BB
+Expr (+0)"]
+1 [tooltip="if capacidade <= 0:
+    raise ValueError(\'A capacidade deve ser maior que zero.\')
+",color=green,label="1 IF
+If (+0)"]
+2 [tooltip="raise ValueError(\'A capacidade deve ser maior que zero.\')
+",color=green,style=filled, fillcolor="#E0E0E0", label="2 THEN
+Raise (+0)"]
+4 [tooltip="self.capacidade = capacidade
+self.tabela = [None] * capacidade
+self.quantidade = 0
+",color=green,style=filled, fillcolor="#E0E0E0", label="4 JOIN
+Assign (+2)"]
+5  [tooltip="capacidade <= 0",color=green,label="5 COND
+capacidade <= 0"]
+0 -> 1 [label="",color=green]
+5 -> 2 [label="T",color=green]
+1 -> 5 [label="cond",color=green]
+5 -> 4 [label="",color=green]
+}
