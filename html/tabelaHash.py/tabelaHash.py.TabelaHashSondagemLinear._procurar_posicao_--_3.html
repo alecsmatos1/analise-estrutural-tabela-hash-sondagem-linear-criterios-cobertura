@@ -117,172 +117,543 @@
     
 <div class="graphpanel card">
   <div class="toolbar">
-    <span class="muted">CFG (.dot)</span>
+    <span class="muted">CFG</span>
+    <div class="toolbuttons">
+      <span class="btn" onclick="zoomIn()">Zoom +</span>
+      <span class="btn" onclick="zoomOut()">Zoom -</span>
+      <span class="btn" onclick="zoomReset()">Reset</span>
+    </div>
   </div>
+
   <div class="graphsplit">
-    <pre>digraph { 
-0 [tooltip=&quot;\&#x27;\n        Procura a posiÃ§Ã£o de uma chave na tabela.\n\n        Se para_insercao=False:\n            - retorna o Ã\xadndice da chave, se ela existir;\n            - retorna None, se ela nÃ£o existir.\n\n        Se para_insercao=True:\n            - retorna o Ã\xadndice da prÃ³pria chave, se ela jÃ¡ existir;\n            - retorna a melhor posiÃ§Ã£o livre para inserir;\n            - retorna None, se nÃ£o houver posiÃ§Ã£o disponÃ\xadvel.\n\n        A sondagem Ã© linear:\n            pos, pos+1, pos+2, ... (com retorno ao inÃ\xadcio da tabela)\n        \&#x27;
-posicao_inicial = self.funcao_hash(chave)
-posicao = posicao_inicial
-primeira_removida = None
-passos = 0
-&quot;,color=green,label=&quot;0 BB
-Expr (+4)&quot;]
-1 [tooltip=&quot;while passos &lt; self.capacidade:
-    entrada = self.tabela[posicao]
-    if entrada is None:
-        if para_insercao:
-            if primeira_removida is not None:
-                return primeira_removida
-            return posicao
-        else:
-            return None
-    elif entrada is REMOVIDO:
-        if para_insercao and primeira_removida is None:
-            primeira_removida = posicao
-    else:
-        chave_guardada, _ = entrada
-        if chave_guardada == chave:
-            return posicao
-    posicao = (posicao + 1) % self.capacidade
-    passos += 1
-&quot;,color=green,label=&quot;1 WHILE
-While (+0)&quot;]
-2 [tooltip=&quot;entrada = self.tabela[posicao]
-&quot;,color=green,label=&quot;2 WHILE_BODY
-Assign (+0)&quot;]
-4 [tooltip=&quot;if para_insercao and primeira_removida is not None:
-    return primeira_removida
-&quot;,color=green,label=&quot;4 IF
-If (+0)&quot;]
-5  [tooltip=&quot;passos &lt; self.capacidade&quot;,color=green,label=&quot;5 COND
-passos &lt; self.capacidade&quot;]
-6 [tooltip=&quot;if entrada is None:
-    if para_insercao:
-        if primeira_removida is not None:
-            return primeira_removida
-        return posicao
-    else:
-        return None
-elif entrada is REMOVIDO:
-    if para_insercao and primeira_removida is None:
-        primeira_removida = posicao
-else:
-    chave_guardada, _ = entrada
-    if chave_guardada == chave:
-        return posicao
-&quot;,color=green,label=&quot;6 IF
-If (+0)&quot;]
-7 [tooltip=&quot;if para_insercao:
-    if primeira_removida is not None:
-        return primeira_removida
-    return posicao
-else:
-    return None
-&quot;,color=green,label=&quot;7 IF
-If (+0)&quot;]
-8 [tooltip=&quot;if entrada is REMOVIDO:
-    if para_insercao and primeira_removida is None:
-        primeira_removida = posicao
-else:
-    chave_guardada, _ = entrada
-    if chave_guardada == chave:
-        return posicao
-&quot;,color=green,label=&quot;8 IF
-If (+0)&quot;]
-9 [tooltip=&quot;posicao = (posicao + 1) % self.capacidade
-passos += 1
-&quot;,color=green,label=&quot;9 JOIN
-Assign (+1)&quot;]
-10  [tooltip=&quot;entrada is None&quot;,color=green,label=&quot;10 COND
-entrada is None&quot;]
-11 [tooltip=&quot;if primeira_removida is not None:
-    return primeira_removida
-&quot;,color=green,label=&quot;11 IF
-If (+0)&quot;]
-12 [tooltip=&quot;return None
-&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;12 ELSE
-Return (+0)&quot;]
-14  [tooltip=&quot;para_insercao&quot;,color=green,label=&quot;14 COND
-para_insercao&quot;]
-15 [tooltip=&quot;return primeira_removida
-&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;15 THEN
-Return (+0)&quot;]
-17 [tooltip=&quot;return posicao
-&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;17 JOIN
-Return (+0)&quot;]
-18  [tooltip=&quot;primeira_removida is not None&quot;,color=green,label=&quot;18 COND
-primeira_removida is not None&quot;]
-22 [tooltip=&quot;if para_insercao and primeira_removida is None:
-    primeira_removida = posicao
-&quot;,color=green,label=&quot;22 IF
-If (+0)&quot;]
-23 [tooltip=&quot;chave_guardada, _ = entrada
-&quot;,color=green,label=&quot;23 ELSE
-Assign (+0)&quot;]
-25  [tooltip=&quot;entrada is REMOVIDO&quot;,color=green,label=&quot;25 COND
-entrada is REMOVIDO&quot;]
-26 [tooltip=&quot;primeira_removida = posicao
-&quot;,color=green,label=&quot;26 THEN
-Assign (+0)&quot;]
-29  [tooltip=&quot;primeira_removida is None&quot;,color=green,label=&quot;29 COND
-primeira_removida is None&quot;]
-30  [tooltip=&quot;para_insercao&quot;,color=green,label=&quot;30 COND
-para_insercao&quot;]
-31 [tooltip=&quot;if chave_guardada == chave:
-    return posicao
-&quot;,color=green,label=&quot;31 IF
-If (+0)&quot;]
-32 [tooltip=&quot;return posicao
-&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;32 THEN
-Return (+0)&quot;]
-35  [tooltip=&quot;chave_guardada == chave&quot;,color=green,label=&quot;35 COND
-chave_guardada == chave&quot;]
-37 [tooltip=&quot;return primeira_removida
-&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;37 THEN
-Return (+0)&quot;]
-39 [tooltip=&quot;return None
-&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;39 JOIN
-Return (+0)&quot;]
-40  [tooltip=&quot;primeira_removida is not None&quot;,color=green,label=&quot;40 COND
-primeira_removida is not None&quot;]
-41  [tooltip=&quot;para_insercao&quot;,color=green,label=&quot;41 COND
-para_insercao&quot;]
-0 -&gt; 1 [label=&quot;&quot;,color=green]
-5 -&gt; 2 [label=&quot;T&quot;,color=green]
-1 -&gt; 5 [label=&quot;while:cond&quot;,color=green]
-2 -&gt; 6 [label=&quot;&quot;,color=green]
-10 -&gt; 7 [label=&quot;T&quot;,color=green]
-10 -&gt; 8 [label=&quot;F&quot;,color=green]
-6 -&gt; 10 [label=&quot;cond&quot;,color=green]
-14 -&gt; 11 [label=&quot;T&quot;,color=green]
-14 -&gt; 12 [label=&quot;F&quot;,color=green]
-7 -&gt; 14 [label=&quot;cond&quot;,color=green]
-18 -&gt; 15 [label=&quot;T&quot;,color=green]
-11 -&gt; 18 [label=&quot;cond&quot;,color=green]
-25 -&gt; 22 [label=&quot;T&quot;,color=green]
-25 -&gt; 23 [label=&quot;F&quot;,color=green]
-8 -&gt; 25 [label=&quot;cond&quot;,color=green]
-29 -&gt; 26 [label=&quot;T&quot;,color=green]
-30 -&gt; 29 [label=&quot;T&quot;,color=green]
-22 -&gt; 30 [label=&quot;cond&quot;,color=green]
-23 -&gt; 31 [label=&quot;&quot;,color=green]
-35 -&gt; 32 [label=&quot;T&quot;,color=green]
-31 -&gt; 35 [label=&quot;cond&quot;,color=green]
-9 -&gt; 1 [label=&quot;back&quot;,color=green]
-40 -&gt; 37 [label=&quot;T&quot;,color=green]
-41 -&gt; 40 [label=&quot;T&quot;,color=green]
-4 -&gt; 41 [label=&quot;cond&quot;,color=green]
-5 -&gt; 4 [label=&quot;while:done&quot;,color=green]
-18 -&gt; 17 [label=&quot;&quot;,color=green]
-26 -&gt; 9 [label=&quot;&quot;,color=green]
-29 -&gt; 9 [label=&quot;&quot;,color=green]
-30 -&gt; 9 [label=&quot;&quot;,color=green]
-35 -&gt; 9 [label=&quot;&quot;,color=green]
-40 -&gt; 39 [label=&quot;&quot;,color=green]
-41 -&gt; 39 [label=&quot;&quot;,color=green]
-}
-</pre>
+    <div id="graphViewport" class="viewport" onwheel="onWheelZoom(event)">
+      <div id="graphCanvas" class="canvas">
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.4 (20260321.0153)
+ -->
+<!-- Pages: 1 -->
+<svg width="859pt" height="1361pt"
+ viewBox="0.00 0.00 859.00 1361.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1356.78)">
+<polygon fill="white" stroke="none" points="-4,4 -4,-1356.78 855.42,-1356.78 855.42,4 -4,4"/>
+<!-- 0 -->
+<g id="node1" class="node">
+<title>0</title>
+<g id="a_node1"><a xlink:title="&#39;&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;Procura a posiÃ§Ã£o de uma chave na tabela.&#10;&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;Se para_insercao=False:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#45; retorna o Ãxadndice da chave, se ela existir;&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#45; retorna None, se ela nÃ£o existir.&#10;&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;Se para_insercao=True:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#45; retorna o Ãxadndice da prÃ³pria chave, se ela jÃ¡ existir;&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#45; retorna a melhor posiÃ§Ã£o livre para inserir;&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#45; retorna None, se nÃ£o houver posiÃ§Ã£o disponÃxadvel.&#10;&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;A sondagem Ã© linear:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;pos, pos+1, pos+2, ... (com retorno ao inÃxadcio da tabela)&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#39;&#10;posicao_inicial = self.funcao_hash(chave)&#10;posicao = posicao_inicial&#10;primeira_removida = None&#10;passos = 0&#10;">
+<ellipse fill="none" stroke="green" cx="720.92" cy="-1323.78" rx="49.5" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="720.92" y="-1326.98" font-family="Times New Roman,serif" font-size="14.00">0 BB</text>
+<text xml:space="preserve" text-anchor="middle" x="720.92" y="-1310.48" font-family="Times New Roman,serif" font-size="14.00">Expr (+4)</text>
+</a>
+</g>
+</g>
+<!-- 1 -->
+<g id="node2" class="node">
+<title>1</title>
+<g id="a_node2"><a xlink:title="while passos &lt; self.capacidade:&#10; &#160;&#160;&#160;entrada = self.tabela[posicao]&#10; &#160;&#160;&#160;if entrada is None:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;if para_insercao:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;if primeira_removida is not None:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return primeira_removida&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return posicao&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;else:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return None&#10; &#160;&#160;&#160;elif entrada is REMOVIDO:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;if para_insercao and primeira_removida is None:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;primeira_removida = posicao&#10; &#160;&#160;&#160;else:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;chave_guardada, _ = entrada&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;if chave_guardada == chave:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return posicao&#10; &#160;&#160;&#160;posicao = (posicao + 1) % self.capacidade&#10; &#160;&#160;&#160;passos += 1&#10;">
+<ellipse fill="none" stroke="green" cx="720.92" cy="-1228.8" rx="54.8" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="720.92" y="-1232" font-family="Times New Roman,serif" font-size="14.00">1 WHILE</text>
+<text xml:space="preserve" text-anchor="middle" x="720.92" y="-1215.5" font-family="Times New Roman,serif" font-size="14.00">While (+0)</text>
+</a>
+</g>
+</g>
+<!-- 0&#45;&gt;1 -->
+<g id="edge1" class="edge">
+<title>0&#45;&gt;1</title>
+<path fill="none" stroke="green" d="M720.92,-1294.38C720.92,-1286.54 720.92,-1277.89 720.92,-1269.53"/>
+<polygon fill="green" stroke="green" points="724.42,-1269.54 720.92,-1259.54 717.42,-1269.54 724.42,-1269.54"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node">
+<title>5</title>
+<g id="a_node5"><a xlink:title="passos &lt; self.capacidade">
+<ellipse fill="none" stroke="green" cx="616.92" cy="-1118.32" rx="106.24" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="616.92" y="-1121.52" font-family="Times New Roman,serif" font-size="14.00">5 COND</text>
+<text xml:space="preserve" text-anchor="middle" x="616.92" y="-1105.02" font-family="Times New Roman,serif" font-size="14.00">passos &lt; self.capacidade</text>
+</a>
+</g>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge3" class="edge">
+<title>1&#45;&gt;5</title>
+<path fill="none" stroke="green" d="M696.54,-1202.37C683.06,-1188.31 666.1,-1170.62 651.3,-1155.18"/>
+<polygon fill="green" stroke="green" points="653.83,-1152.76 644.39,-1147.97 648.78,-1157.61 653.83,-1152.76"/>
+<text xml:space="preserve" text-anchor="middle" x="705.15" y="-1168.51" font-family="Times New Roman,serif" font-size="14.00">while:cond</text>
+</g>
+<!-- 2 -->
+<g id="node3" class="node">
+<title>2</title>
+<g id="a_node3"><a xlink:title="entrada = self.tabela[posicao]&#10;">
+<ellipse fill="none" stroke="green" cx="477.92" cy="-1007.84" rx="81.32" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="477.92" y="-1011.04" font-family="Times New Roman,serif" font-size="14.00">2 WHILE_BODY</text>
+<text xml:space="preserve" text-anchor="middle" x="477.92" y="-994.54" font-family="Times New Roman,serif" font-size="14.00">Assign (+0)</text>
+</a>
+</g>
+</g>
+<!-- 6 -->
+<g id="node6" class="node">
+<title>6</title>
+<g id="a_node6"><a xlink:title="if entrada is None:&#10; &#160;&#160;&#160;if para_insercao:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;if primeira_removida is not None:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;return primeira_removida&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;return posicao&#10; &#160;&#160;&#160;else:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;return None&#10;elif entrada is REMOVIDO:&#10; &#160;&#160;&#160;if para_insercao and primeira_removida is None:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;primeira_removida = posicao&#10;else:&#10; &#160;&#160;&#160;chave_guardada, _ = entrada&#10; &#160;&#160;&#160;if chave_guardada == chave:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;return posicao&#10;">
+<ellipse fill="none" stroke="green" cx="465.92" cy="-897.35" rx="37.3" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="465.92" y="-900.55" font-family="Times New Roman,serif" font-size="14.00">6 IF</text>
+<text xml:space="preserve" text-anchor="middle" x="465.92" y="-884.05" font-family="Times New Roman,serif" font-size="14.00">If (+0)</text>
+</a>
+</g>
+</g>
+<!-- 2&#45;&gt;6 -->
+<g id="edge4" class="edge">
+<title>2&#45;&gt;6</title>
+<path fill="none" stroke="green" d="M474.8,-978.62C473.43,-966.19 471.79,-951.37 470.29,-937.86"/>
+<polygon fill="green" stroke="green" points="473.77,-937.49 469.19,-927.94 466.82,-938.26 473.77,-937.49"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node">
+<title>4</title>
+<g id="a_node4"><a xlink:title="if para_insercao and primeira_removida is not None:&#10; &#160;&#160;&#160;return primeira_removida&#10;">
+<ellipse fill="none" stroke="green" cx="616.92" cy="-1007.84" rx="37.3" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="616.92" y="-1011.04" font-family="Times New Roman,serif" font-size="14.00">4 IF</text>
+<text xml:space="preserve" text-anchor="middle" x="616.92" y="-994.54" font-family="Times New Roman,serif" font-size="14.00">If (+0)</text>
+</a>
+</g>
+</g>
+<!-- 41 -->
+<g id="node29" class="node">
+<title>41</title>
+<g id="a_node29"><a xlink:title="para_insercao">
+<ellipse fill="none" stroke="green" cx="616.92" cy="-897.35" rx="64.35" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="616.92" y="-900.55" font-family="Times New Roman,serif" font-size="14.00">41 COND</text>
+<text xml:space="preserve" text-anchor="middle" x="616.92" y="-884.05" font-family="Times New Roman,serif" font-size="14.00">para_insercao</text>
+</a>
+</g>
+</g>
+<!-- 4&#45;&gt;41 -->
+<g id="edge25" class="edge">
+<title>4&#45;&gt;41</title>
+<path fill="none" stroke="green" d="M616.92,-978.62C616.92,-966.28 616.92,-951.6 616.92,-938.18"/>
+<polygon fill="green" stroke="green" points="620.42,-938.32 616.92,-928.32 613.42,-938.32 620.42,-938.32"/>
+<text xml:space="preserve" text-anchor="middle" x="630.05" y="-947.54" font-family="Times New Roman,serif" font-size="14.00">cond</text>
+</g>
+<!-- 5&#45;&gt;2 -->
+<g id="edge2" class="edge">
+<title>5&#45;&gt;2</title>
+<path fill="none" stroke="green" d="M582.56,-1090.5C563.6,-1075.7 539.9,-1057.21 519.85,-1041.56"/>
+<polygon fill="green" stroke="green" points="522.16,-1038.92 512.12,-1035.53 517.85,-1044.44 522.16,-1038.92"/>
+<text xml:space="preserve" text-anchor="middle" x="559.87" y="-1058.03" font-family="Times New Roman,serif" font-size="14.00">T</text>
+</g>
+<!-- 5&#45;&gt;4 -->
+<g id="edge26" class="edge">
+<title>5&#45;&gt;4</title>
+<path fill="none" stroke="green" d="M616.92,-1089.1C616.92,-1076.77 616.92,-1062.08 616.92,-1048.66"/>
+<polygon fill="green" stroke="green" points="620.42,-1048.8 616.92,-1038.8 613.42,-1048.8 620.42,-1048.8"/>
+<text xml:space="preserve" text-anchor="middle" x="646.92" y="-1058.03" font-family="Times New Roman,serif" font-size="14.00">while:done</text>
+</g>
+<!-- 10 -->
+<g id="node10" class="node">
+<title>10</title>
+<g id="a_node10"><a xlink:title="entrada is None">
+<ellipse fill="none" stroke="green" cx="403.92" cy="-786.87" rx="71.77" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="403.92" y="-790.07" font-family="Times New Roman,serif" font-size="14.00">10 COND</text>
+<text xml:space="preserve" text-anchor="middle" x="403.92" y="-773.57" font-family="Times New Roman,serif" font-size="14.00">entrada is None</text>
+</a>
+</g>
+</g>
+<!-- 6&#45;&gt;10 -->
+<g id="edge7" class="edge">
+<title>6&#45;&gt;10</title>
+<path fill="none" stroke="green" d="M451.07,-870.37C443.39,-856.92 433.87,-840.26 425.4,-825.44"/>
+<polygon fill="green" stroke="green" points="428.49,-823.8 420.49,-816.85 422.41,-827.27 428.49,-823.8"/>
+<text xml:space="preserve" text-anchor="middle" x="451.76" y="-837.06" font-family="Times New Roman,serif" font-size="14.00">cond</text>
+</g>
+<!-- 7 -->
+<g id="node7" class="node">
+<title>7</title>
+<g id="a_node7"><a xlink:title="if para_insercao:&#10; &#160;&#160;&#160;if primeira_removida is not None:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;return primeira_removida&#10; &#160;&#160;&#160;return posicao&#10;else:&#10; &#160;&#160;&#160;return None&#10;">
+<ellipse fill="none" stroke="green" cx="302.92" cy="-676.39" rx="37.3" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="302.92" y="-679.59" font-family="Times New Roman,serif" font-size="14.00">7 IF</text>
+<text xml:space="preserve" text-anchor="middle" x="302.92" y="-663.09" font-family="Times New Roman,serif" font-size="14.00">If (+0)</text>
+</a>
+</g>
+</g>
+<!-- 14 -->
+<g id="node13" class="node">
+<title>14</title>
+<g id="a_node13"><a xlink:title="para_insercao">
+<ellipse fill="none" stroke="green" cx="263.92" cy="-565.91" rx="64.35" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="263.92" y="-569.11" font-family="Times New Roman,serif" font-size="14.00">14 COND</text>
+<text xml:space="preserve" text-anchor="middle" x="263.92" y="-552.61" font-family="Times New Roman,serif" font-size="14.00">para_insercao</text>
+</a>
+</g>
+</g>
+<!-- 7&#45;&gt;14 -->
+<g id="edge10" class="edge">
+<title>7&#45;&gt;14</title>
+<path fill="none" stroke="green" d="M293.08,-648.01C288.49,-635.23 282.94,-619.8 277.92,-605.83"/>
+<polygon fill="green" stroke="green" points="281.22,-604.68 274.54,-596.45 274.63,-607.05 281.22,-604.68"/>
+<text xml:space="preserve" text-anchor="middle" x="298.88" y="-616.1" font-family="Times New Roman,serif" font-size="14.00">cond</text>
+</g>
+<!-- 8 -->
+<g id="node8" class="node">
+<title>8</title>
+<g id="a_node8"><a xlink:title="if entrada is REMOVIDO:&#10; &#160;&#160;&#160;if para_insercao and primeira_removida is None:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;primeira_removida = posicao&#10;else:&#10; &#160;&#160;&#160;chave_guardada, _ = entrada&#10; &#160;&#160;&#160;if chave_guardada == chave:&#10; &#160;&#160;&#160;&#160;&#160;&#160;&#160;return posicao&#10;">
+<ellipse fill="none" stroke="green" cx="414.92" cy="-676.39" rx="37.3" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="414.92" y="-679.59" font-family="Times New Roman,serif" font-size="14.00">8 IF</text>
+<text xml:space="preserve" text-anchor="middle" x="414.92" y="-663.09" font-family="Times New Roman,serif" font-size="14.00">If (+0)</text>
+</a>
+</g>
+</g>
+<!-- 25 -->
+<g id="node19" class="node">
+<title>25</title>
+<g id="a_node19"><a xlink:title="entrada is REMOVIDO">
+<ellipse fill="none" stroke="green" cx="448.92" cy="-565.91" rx="103.06" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="448.92" y="-569.11" font-family="Times New Roman,serif" font-size="14.00">25 COND</text>
+<text xml:space="preserve" text-anchor="middle" x="448.92" y="-552.61" font-family="Times New Roman,serif" font-size="14.00">entrada is REMOVIDO</text>
+</a>
+</g>
+</g>
+<!-- 8&#45;&gt;25 -->
+<g id="edge15" class="edge">
+<title>8&#45;&gt;25</title>
+<path fill="none" stroke="green" d="M423.59,-647.73C427.56,-635.05 432.35,-619.8 436.68,-605.97"/>
+<polygon fill="green" stroke="green" points="439.93,-607.3 439.58,-596.71 433.25,-605.21 439.93,-607.3"/>
+<text xml:space="preserve" text-anchor="middle" x="447.08" y="-616.1" font-family="Times New Roman,serif" font-size="14.00">cond</text>
+</g>
+<!-- 9 -->
+<g id="node9" class="node">
+<title>9</title>
+<g id="a_node9"><a xlink:title="posicao = (posicao + 1) % self.capacidade&#10;passos += 1&#10;">
+<ellipse fill="none" stroke="green" cx="517.92" cy="-28.99" rx="57.45" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="517.92" y="-32.19" font-family="Times New Roman,serif" font-size="14.00">9 JOIN</text>
+<text xml:space="preserve" text-anchor="middle" x="517.92" y="-15.69" font-family="Times New Roman,serif" font-size="14.00">Assign (+1)</text>
+</a>
+</g>
+</g>
+<!-- 9&#45;&gt;1 -->
+<g id="edge22" class="edge">
+<title>9&#45;&gt;1</title>
+<path fill="none" stroke="green" d="M574.41,-35.39C663.33,-45.48 825.92,-71.03 825.92,-122.97 825.92,-1119.32 825.92,-1119.32 825.92,-1119.32 825.92,-1154.61 796.88,-1182.78 769.35,-1201.56"/>
+<polygon fill="green" stroke="green" points="767.47,-1198.61 760.99,-1206.99 771.28,-1204.48 767.47,-1198.61"/>
+<text xml:space="preserve" text-anchor="middle" x="838.67" y="-616.1" font-family="Times New Roman,serif" font-size="14.00">back</text>
+</g>
+<!-- 10&#45;&gt;7 -->
+<g id="edge5" class="edge">
+<title>10&#45;&gt;7</title>
+<path fill="none" stroke="green" d="M379.21,-759.33C364.89,-743.95 346.79,-724.5 331.81,-708.41"/>
+<polygon fill="green" stroke="green" points="334.7,-706.39 325.33,-701.45 329.58,-711.16 334.7,-706.39"/>
+<text xml:space="preserve" text-anchor="middle" x="363.59" y="-726.58" font-family="Times New Roman,serif" font-size="14.00">T</text>
+</g>
+<!-- 10&#45;&gt;8 -->
+<g id="edge6" class="edge">
+<title>10&#45;&gt;8</title>
+<path fill="none" stroke="green" d="M406.78,-757.65C408.04,-745.22 409.55,-730.4 410.92,-716.9"/>
+<polygon fill="green" stroke="green" points="414.4,-717.27 411.92,-706.97 407.43,-716.57 414.4,-717.27"/>
+<text xml:space="preserve" text-anchor="middle" x="413.83" y="-726.58" font-family="Times New Roman,serif" font-size="14.00">F</text>
+</g>
+<!-- 11 -->
+<g id="node11" class="node">
+<title>11</title>
+<g id="a_node11"><a xlink:title="if primeira_removida is not None:&#10; &#160;&#160;&#160;return primeira_removida&#10;">
+<ellipse fill="none" stroke="green" cx="155.92" cy="-455.42" rx="37.3" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="155.92" y="-458.62" font-family="Times New Roman,serif" font-size="14.00">11 IF</text>
+<text xml:space="preserve" text-anchor="middle" x="155.92" y="-442.12" font-family="Times New Roman,serif" font-size="14.00">If (+0)</text>
+</a>
+</g>
+</g>
+<!-- 18 -->
+<g id="node16" class="node">
+<title>18</title>
+<g id="a_node16"><a xlink:title="primeira_removida is not None">
+<ellipse fill="none" stroke="green" cx="155.92" cy="-344.94" rx="132.76" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="155.92" y="-348.14" font-family="Times New Roman,serif" font-size="14.00">18 COND</text>
+<text xml:space="preserve" text-anchor="middle" x="155.92" y="-331.64" font-family="Times New Roman,serif" font-size="14.00">primeira_removida is not None</text>
+</a>
+</g>
+</g>
+<!-- 11&#45;&gt;18 -->
+<g id="edge12" class="edge">
+<title>11&#45;&gt;18</title>
+<path fill="none" stroke="green" d="M155.92,-426.2C155.92,-413.87 155.92,-399.18 155.92,-385.77"/>
+<polygon fill="green" stroke="green" points="159.42,-385.91 155.92,-375.91 152.42,-385.91 159.42,-385.91"/>
+<text xml:space="preserve" text-anchor="middle" x="169.05" y="-395.13" font-family="Times New Roman,serif" font-size="14.00">cond</text>
+</g>
+<!-- 12 -->
+<g id="node12" class="node">
+<title>12</title>
+<g id="a_node12"><a xlink:title="return None&#10;">
+<ellipse fill="#e0e0e0" stroke="green" cx="267.92" cy="-455.42" rx="56.92" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="267.92" y="-458.62" font-family="Times New Roman,serif" font-size="14.00">12 ELSE</text>
+<text xml:space="preserve" text-anchor="middle" x="267.92" y="-442.12" font-family="Times New Roman,serif" font-size="14.00">Return (+0)</text>
+</a>
+</g>
+</g>
+<!-- 14&#45;&gt;11 -->
+<g id="edge8" class="edge">
+<title>14&#45;&gt;11</title>
+<path fill="none" stroke="green" d="M238.05,-538.92C222.39,-523.19 202.36,-503.06 185.99,-486.63"/>
+<polygon fill="green" stroke="green" points="188.89,-484.58 179.36,-479.96 183.93,-489.52 188.89,-484.58"/>
+<text xml:space="preserve" text-anchor="middle" x="220.51" y="-505.61" font-family="Times New Roman,serif" font-size="14.00">T</text>
+</g>
+<!-- 14&#45;&gt;12 -->
+<g id="edge9" class="edge">
+<title>14&#45;&gt;12</title>
+<path fill="none" stroke="green" d="M264.96,-536.69C265.42,-524.35 265.96,-509.67 266.45,-496.25"/>
+<polygon fill="green" stroke="green" points="269.95,-496.51 266.82,-486.39 262.95,-496.25 269.95,-496.51"/>
+<text xml:space="preserve" text-anchor="middle" x="269.91" y="-505.61" font-family="Times New Roman,serif" font-size="14.00">F</text>
+</g>
+<!-- 15 -->
+<g id="node14" class="node">
+<title>15</title>
+<g id="a_node14"><a xlink:title="return primeira_removida&#10;">
+<ellipse fill="#e0e0e0" stroke="green" cx="56.92" cy="-234.46" rx="56.92" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="56.92" y="-237.66" font-family="Times New Roman,serif" font-size="14.00">15 THEN</text>
+<text xml:space="preserve" text-anchor="middle" x="56.92" y="-221.16" font-family="Times New Roman,serif" font-size="14.00">Return (+0)</text>
+</a>
+</g>
+</g>
+<!-- 17 -->
+<g id="node15" class="node">
+<title>17</title>
+<g id="a_node15"><a xlink:title="return posicao&#10;">
+<ellipse fill="#e0e0e0" stroke="green" cx="188.92" cy="-234.46" rx="56.92" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="188.92" y="-237.66" font-family="Times New Roman,serif" font-size="14.00">17 JOIN</text>
+<text xml:space="preserve" text-anchor="middle" x="188.92" y="-221.16" font-family="Times New Roman,serif" font-size="14.00">Return (+0)</text>
+</a>
+</g>
+</g>
+<!-- 18&#45;&gt;15 -->
+<g id="edge11" class="edge">
+<title>18&#45;&gt;15</title>
+<path fill="none" stroke="green" d="M130.43,-316C117.5,-301.83 101.68,-284.5 88.04,-269.55"/>
+<polygon fill="green" stroke="green" points="90.64,-267.21 81.32,-262.19 85.47,-271.93 90.64,-267.21"/>
+<text xml:space="preserve" text-anchor="middle" x="116.47" y="-284.65" font-family="Times New Roman,serif" font-size="14.00">T</text>
+</g>
+<!-- 18&#45;&gt;17 -->
+<g id="edge27" class="edge">
+<title>18&#45;&gt;17</title>
+<path fill="none" stroke="green" d="M164.51,-315.72C168.36,-303.04 172.98,-287.87 177.15,-274.15"/>
+<polygon fill="green" stroke="green" points="180.38,-275.57 179.94,-264.98 173.68,-273.53 180.38,-275.57"/>
+</g>
+<!-- 22 -->
+<g id="node17" class="node">
+<title>22</title>
+<g id="a_node17"><a xlink:title="if para_insercao and primeira_removida is None:&#10; &#160;&#160;&#160;primeira_removida = posicao&#10;">
+<ellipse fill="none" stroke="green" cx="438.92" cy="-455.42" rx="37.3" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="438.92" y="-458.62" font-family="Times New Roman,serif" font-size="14.00">22 IF</text>
+<text xml:space="preserve" text-anchor="middle" x="438.92" y="-442.12" font-family="Times New Roman,serif" font-size="14.00">If (+0)</text>
+</a>
+</g>
+</g>
+<!-- 30 -->
+<g id="node22" class="node">
+<title>30</title>
+<g id="a_node22"><a xlink:title="para_insercao">
+<ellipse fill="none" stroke="green" cx="435.92" cy="-344.94" rx="64.35" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="435.92" y="-348.14" font-family="Times New Roman,serif" font-size="14.00">30 COND</text>
+<text xml:space="preserve" text-anchor="middle" x="435.92" y="-331.64" font-family="Times New Roman,serif" font-size="14.00">para_insercao</text>
+</a>
+</g>
+</g>
+<!-- 22&#45;&gt;30 -->
+<g id="edge18" class="edge">
+<title>22&#45;&gt;30</title>
+<path fill="none" stroke="green" d="M438.14,-426.2C437.8,-413.87 437.39,-399.18 437.02,-385.77"/>
+<polygon fill="green" stroke="green" points="440.53,-385.81 436.75,-375.91 433.53,-386 440.53,-385.81"/>
+<text xml:space="preserve" text-anchor="middle" x="450.73" y="-395.13" font-family="Times New Roman,serif" font-size="14.00">cond</text>
+</g>
+<!-- 23 -->
+<g id="node18" class="node">
+<title>23</title>
+<g id="a_node18"><a xlink:title="chave_guardada, _ = entrada&#10;">
+<ellipse fill="none" stroke="green" cx="560.92" cy="-455.42" rx="57.45" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="560.92" y="-458.62" font-family="Times New Roman,serif" font-size="14.00">23 ELSE</text>
+<text xml:space="preserve" text-anchor="middle" x="560.92" y="-442.12" font-family="Times New Roman,serif" font-size="14.00">Assign (+0)</text>
+</a>
+</g>
+</g>
+<!-- 31 -->
+<g id="node23" class="node">
+<title>31</title>
+<g id="a_node23"><a xlink:title="if chave_guardada == chave:&#10; &#160;&#160;&#160;return posicao&#10;">
+<ellipse fill="none" stroke="green" cx="588.92" cy="-344.94" rx="37.3" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="588.92" y="-348.14" font-family="Times New Roman,serif" font-size="14.00">31 IF</text>
+<text xml:space="preserve" text-anchor="middle" x="588.92" y="-331.64" font-family="Times New Roman,serif" font-size="14.00">If (+0)</text>
+</a>
+</g>
+</g>
+<!-- 23&#45;&gt;31 -->
+<g id="edge19" class="edge">
+<title>23&#45;&gt;31</title>
+<path fill="none" stroke="green" d="M568.21,-426.2C571.47,-413.55 575.38,-398.42 578.91,-384.72"/>
+<polygon fill="green" stroke="green" points="582.28,-385.67 581.39,-375.11 575.51,-383.92 582.28,-385.67"/>
+</g>
+<!-- 25&#45;&gt;22 -->
+<g id="edge13" class="edge">
+<title>25&#45;&gt;22</title>
+<path fill="none" stroke="green" d="M446.32,-536.69C445.17,-524.26 443.81,-509.44 442.56,-495.93"/>
+<polygon fill="green" stroke="green" points="446.05,-495.64 441.65,-486.01 439.08,-496.29 446.05,-495.64"/>
+<text xml:space="preserve" text-anchor="middle" x="448.65" y="-505.61" font-family="Times New Roman,serif" font-size="14.00">T</text>
+</g>
+<!-- 25&#45;&gt;23 -->
+<g id="edge14" class="edge">
+<title>25&#45;&gt;23</title>
+<path fill="none" stroke="green" d="M476.9,-537.81C492.01,-523.17 510.8,-504.97 526.78,-489.49"/>
+<polygon fill="green" stroke="green" points="529.01,-492.21 533.75,-482.74 524.14,-487.18 529.01,-492.21"/>
+<text xml:space="preserve" text-anchor="middle" x="515.38" y="-505.61" font-family="Times New Roman,serif" font-size="14.00">F</text>
+</g>
+<!-- 26 -->
+<g id="node20" class="node">
+<title>26</title>
+<g id="a_node20"><a xlink:title="primeira_removida = posicao&#10;">
+<ellipse fill="none" stroke="green" cx="517.92" cy="-123.97" rx="57.45" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="517.92" y="-127.17" font-family="Times New Roman,serif" font-size="14.00">26 THEN</text>
+<text xml:space="preserve" text-anchor="middle" x="517.92" y="-110.67" font-family="Times New Roman,serif" font-size="14.00">Assign (+0)</text>
+</a>
+</g>
+</g>
+<!-- 26&#45;&gt;9 -->
+<g id="edge28" class="edge">
+<title>26&#45;&gt;9</title>
+<path fill="none" stroke="green" d="M517.92,-94.57C517.92,-86.73 517.92,-78.08 517.92,-69.72"/>
+<polygon fill="green" stroke="green" points="521.42,-69.73 517.92,-59.73 514.42,-69.73 521.42,-69.73"/>
+</g>
+<!-- 29 -->
+<g id="node21" class="node">
+<title>29</title>
+<g id="a_node21"><a xlink:title="primeira_removida is None">
+<ellipse fill="none" stroke="green" cx="435.92" cy="-234.46" rx="117.91" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="435.92" y="-237.66" font-family="Times New Roman,serif" font-size="14.00">29 COND</text>
+<text xml:space="preserve" text-anchor="middle" x="435.92" y="-221.16" font-family="Times New Roman,serif" font-size="14.00">primeira_removida is None</text>
+</a>
+</g>
+</g>
+<!-- 29&#45;&gt;9 -->
+<g id="edge29" class="edge">
+<title>29&#45;&gt;9</title>
+<path fill="none" stroke="green" d="M433.85,-205.14C432.9,-176.02 434.78,-130.11 451.92,-94.98 458.04,-82.45 467.58,-70.95 477.54,-61.22"/>
+<polygon fill="green" stroke="green" points="479.83,-63.86 484.81,-54.51 475.09,-58.72 479.83,-63.86"/>
+</g>
+<!-- 29&#45;&gt;26 -->
+<g id="edge16" class="edge">
+<title>29&#45;&gt;26</title>
+<path fill="none" stroke="green" d="M457.04,-205.52C467.49,-191.69 480.22,-174.85 491.33,-160.15"/>
+<polygon fill="green" stroke="green" points="493.85,-162.62 497.09,-152.53 488.27,-158.4 493.85,-162.62"/>
+<text xml:space="preserve" text-anchor="middle" x="485.96" y="-174.17" font-family="Times New Roman,serif" font-size="14.00">T</text>
+</g>
+<!-- 30&#45;&gt;9 -->
+<g id="edge30" class="edge">
+<title>30&#45;&gt;9</title>
+<path fill="none" stroke="green" d="M385.8,-326.25C357.77,-313.47 325.28,-293.18 308.92,-263.45 296.5,-240.87 298.43,-229 308.92,-205.47 340.22,-135.29 415.75,-83.6 466.9,-55.14"/>
+<polygon fill="green" stroke="green" points="468.35,-58.34 475.46,-50.48 465,-52.19 468.35,-58.34"/>
+</g>
+<!-- 30&#45;&gt;29 -->
+<g id="edge17" class="edge">
+<title>30&#45;&gt;29</title>
+<path fill="none" stroke="green" d="M435.92,-315.72C435.92,-303.39 435.92,-288.7 435.92,-275.28"/>
+<polygon fill="green" stroke="green" points="439.42,-275.43 435.92,-265.43 432.42,-275.43 439.42,-275.43"/>
+<text xml:space="preserve" text-anchor="middle" x="440.05" y="-284.65" font-family="Times New Roman,serif" font-size="14.00">T</text>
+</g>
+<!-- 35 -->
+<g id="node25" class="node">
+<title>35</title>
+<g id="a_node25"><a xlink:title="chave_guardada == chave">
+<ellipse fill="none" stroke="green" cx="684.92" cy="-234.46" rx="112.61" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="684.92" y="-237.66" font-family="Times New Roman,serif" font-size="14.00">35 COND</text>
+<text xml:space="preserve" text-anchor="middle" x="684.92" y="-221.16" font-family="Times New Roman,serif" font-size="14.00">chave_guardada == chave</text>
+</a>
+</g>
+</g>
+<!-- 31&#45;&gt;35 -->
+<g id="edge21" class="edge">
+<title>31&#45;&gt;35</title>
+<path fill="none" stroke="green" d="M609.75,-320.4C622.43,-306.07 638.88,-287.48 653.16,-271.35"/>
+<polygon fill="green" stroke="green" points="655.39,-274.11 659.39,-264.31 650.15,-269.47 655.39,-274.11"/>
+<text xml:space="preserve" text-anchor="middle" x="655.79" y="-284.65" font-family="Times New Roman,serif" font-size="14.00">cond</text>
+</g>
+<!-- 32 -->
+<g id="node24" class="node">
+<title>32</title>
+<g id="a_node24"><a xlink:title="return posicao&#10;">
+<ellipse fill="#e0e0e0" stroke="green" cx="687.92" cy="-123.97" rx="56.92" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="687.92" y="-127.17" font-family="Times New Roman,serif" font-size="14.00">32 THEN</text>
+<text xml:space="preserve" text-anchor="middle" x="687.92" y="-110.67" font-family="Times New Roman,serif" font-size="14.00">Return (+0)</text>
+</a>
+</g>
+</g>
+<!-- 35&#45;&gt;9 -->
+<g id="edge31" class="edge">
+<title>35&#45;&gt;9</title>
+<path fill="none" stroke="green" d="M662.17,-205.59C649.93,-190.29 634.75,-170.85 621.92,-152.97 603.97,-127.93 603.45,-118.81 583.92,-94.98 574.75,-83.8 563.88,-72.45 553.63,-62.43"/>
+<polygon fill="green" stroke="green" points="556.32,-60.16 546.68,-55.76 551.47,-65.21 556.32,-60.16"/>
+</g>
+<!-- 35&#45;&gt;32 -->
+<g id="edge20" class="edge">
+<title>35&#45;&gt;32</title>
+<path fill="none" stroke="green" d="M685.7,-205.24C686.04,-192.9 686.45,-178.22 686.82,-164.8"/>
+<polygon fill="green" stroke="green" points="690.32,-165.04 687.09,-154.94 683.32,-164.84 690.32,-165.04"/>
+<text xml:space="preserve" text-anchor="middle" x="690.73" y="-174.17" font-family="Times New Roman,serif" font-size="14.00">T</text>
+</g>
+<!-- 37 -->
+<g id="node26" class="node">
+<title>37</title>
+<g id="a_node26"><a xlink:title="return primeira_removida&#10;">
+<ellipse fill="#e0e0e0" stroke="green" cx="664.92" cy="-676.39" rx="56.92" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="664.92" y="-679.59" font-family="Times New Roman,serif" font-size="14.00">37 THEN</text>
+<text xml:space="preserve" text-anchor="middle" x="664.92" y="-663.09" font-family="Times New Roman,serif" font-size="14.00">Return (+0)</text>
+</a>
+</g>
+</g>
+<!-- 39 -->
+<g id="node27" class="node">
+<title>39</title>
+<g id="a_node27"><a xlink:title="return None&#10;">
+<ellipse fill="#e0e0e0" stroke="green" cx="530.92" cy="-676.39" rx="56.92" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="530.92" y="-679.59" font-family="Times New Roman,serif" font-size="14.00">39 JOIN</text>
+<text xml:space="preserve" text-anchor="middle" x="530.92" y="-663.09" font-family="Times New Roman,serif" font-size="14.00">Return (+0)</text>
+</a>
+</g>
+</g>
+<!-- 40 -->
+<g id="node28" class="node">
+<title>40</title>
+<g id="a_node28"><a xlink:title="primeira_removida is not None">
+<ellipse fill="none" stroke="green" cx="664.92" cy="-786.87" rx="132.76" ry="28.99"/>
+<text xml:space="preserve" text-anchor="middle" x="664.92" y="-790.07" font-family="Times New Roman,serif" font-size="14.00">40 COND</text>
+<text xml:space="preserve" text-anchor="middle" x="664.92" y="-773.57" font-family="Times New Roman,serif" font-size="14.00">primeira_removida is not None</text>
+</a>
+</g>
+</g>
+<!-- 40&#45;&gt;37 -->
+<g id="edge23" class="edge">
+<title>40&#45;&gt;37</title>
+<path fill="none" stroke="green" d="M664.92,-757.65C664.92,-745.32 664.92,-730.63 664.92,-717.22"/>
+<polygon fill="green" stroke="green" points="668.42,-717.36 664.92,-707.36 661.42,-717.36 668.42,-717.36"/>
+<text xml:space="preserve" text-anchor="middle" x="669.05" y="-726.58" font-family="Times New Roman,serif" font-size="14.00">T</text>
+</g>
+<!-- 40&#45;&gt;39 -->
+<g id="edge32" class="edge">
+<title>40&#45;&gt;39</title>
+<path fill="none" stroke="green" d="M631.11,-758.5C612.37,-743.32 588.99,-724.4 569.53,-708.65"/>
+<polygon fill="green" stroke="green" points="571.77,-705.95 561.8,-702.38 567.37,-711.39 571.77,-705.95"/>
+</g>
+<!-- 41&#45;&gt;39 -->
+<g id="edge33" class="edge">
+<title>41&#45;&gt;39</title>
+<path fill="none" stroke="green" d="M577.58,-874.19C557.19,-860.34 534.24,-840.45 522.92,-815.86 508.52,-784.58 512.71,-745.03 519.21,-716.22"/>
+<polygon fill="green" stroke="green" points="522.53,-717.37 521.52,-706.82 515.73,-715.7 522.53,-717.37"/>
+</g>
+<!-- 41&#45;&gt;40 -->
+<g id="edge24" class="edge">
+<title>41&#45;&gt;40</title>
+<path fill="none" stroke="green" d="M629.28,-868.42C634.95,-855.61 641.76,-840.22 647.9,-826.34"/>
+<polygon fill="green" stroke="green" points="650.98,-828.04 651.82,-817.47 644.58,-825.2 650.98,-828.04"/>
+<text xml:space="preserve" text-anchor="middle" x="647.92" y="-837.06" font-family="Times New Roman,serif" font-size="14.00">T</text>
+</g>
+</g>
+</svg>
+
+      </div>
+    </div>
     <div class="covpanel">
 <div class="covgroup">
   <div class="covtitle">Blocks</div>
