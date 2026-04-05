@@ -1,0 +1,162 @@
+digraph { 
+0 [tooltip="\'\n        Procura a posiÃ§Ã£o de uma chave na tabela.\n\n        Se para_insercao=False:\n            - retorna o Ã\xadndice da chave, se ela existir;\n            - retorna None, se ela nÃ£o existir.\n\n        Se para_insercao=True:\n            - retorna o Ã\xadndice da prÃ³pria chave, se ela jÃ¡ existir;\n            - retorna a melhor posiÃ§Ã£o livre para inserir;\n            - retorna None, se nÃ£o houver posiÃ§Ã£o disponÃ\xadvel.\n\n        A sondagem Ã© linear:\n            pos, pos+1, pos+2, ... (com retorno ao inÃ\xadcio da tabela)\n        \'
+posicao_inicial = self.funcao_hash(chave)
+posicao = posicao_inicial
+primeira_removida = None
+passos = 0
+",color=green,label="0 BB
+Expr (+4)"]
+1 [tooltip="while passos < self.capacidade:
+    entrada = self.tabela[posicao]
+    if entrada is None:
+        if para_insercao:
+            if primeira_removida is not None:
+                return primeira_removida
+            return posicao
+        else:
+            return None
+    elif entrada is REMOVIDO:
+        if para_insercao and primeira_removida is None:
+            primeira_removida = posicao
+    else:
+        chave_guardada, _ = entrada
+        if chave_guardada == chave:
+            return posicao
+    posicao = (posicao + 1) % self.capacidade
+    passos += 1
+",color=green,label="1 WHILE
+While (+0)"]
+2 [tooltip="entrada = self.tabela[posicao]
+",color=green,label="2 WHILE_BODY
+Assign (+0)"]
+4 [tooltip="if para_insercao and primeira_removida is not None:
+    return primeira_removida
+",color=green,label="4 IF
+If (+0)"]
+5  [tooltip="passos < self.capacidade",color=green,label="5 COND
+passos < self.capacidade"]
+6 [tooltip="if entrada is None:
+    if para_insercao:
+        if primeira_removida is not None:
+            return primeira_removida
+        return posicao
+    else:
+        return None
+elif entrada is REMOVIDO:
+    if para_insercao and primeira_removida is None:
+        primeira_removida = posicao
+else:
+    chave_guardada, _ = entrada
+    if chave_guardada == chave:
+        return posicao
+",color=green,label="6 IF
+If (+0)"]
+7 [tooltip="if para_insercao:
+    if primeira_removida is not None:
+        return primeira_removida
+    return posicao
+else:
+    return None
+",color=green,label="7 IF
+If (+0)"]
+8 [tooltip="if entrada is REMOVIDO:
+    if para_insercao and primeira_removida is None:
+        primeira_removida = posicao
+else:
+    chave_guardada, _ = entrada
+    if chave_guardada == chave:
+        return posicao
+",color=green,label="8 IF
+If (+0)"]
+9 [tooltip="posicao = (posicao + 1) % self.capacidade
+passos += 1
+",color=green,label="9 JOIN
+Assign (+1)"]
+10  [tooltip="entrada is None",color=green,label="10 COND
+entrada is None"]
+11 [tooltip="if primeira_removida is not None:
+    return primeira_removida
+",color=green,label="11 IF
+If (+0)"]
+12 [tooltip="return None
+",color=green,style=filled, fillcolor="#E0E0E0", label="12 ELSE
+Return (+0)"]
+14  [tooltip="para_insercao",color=green,label="14 COND
+para_insercao"]
+15 [tooltip="return primeira_removida
+",color=green,style=filled, fillcolor="#E0E0E0", label="15 THEN
+Return (+0)"]
+17 [tooltip="return posicao
+",color=green,style=filled, fillcolor="#E0E0E0", label="17 JOIN
+Return (+0)"]
+18  [tooltip="primeira_removida is not None",color=green,label="18 COND
+primeira_removida is not None"]
+22 [tooltip="if para_insercao and primeira_removida is None:
+    primeira_removida = posicao
+",color=green,label="22 IF
+If (+0)"]
+23 [tooltip="chave_guardada, _ = entrada
+",color=green,label="23 ELSE
+Assign (+0)"]
+25  [tooltip="entrada is REMOVIDO",color=green,label="25 COND
+entrada is REMOVIDO"]
+26 [tooltip="primeira_removida = posicao
+",color=green,label="26 THEN
+Assign (+0)"]
+29  [tooltip="primeira_removida is None",color=green,label="29 COND
+primeira_removida is None"]
+30  [tooltip="para_insercao",color=green,label="30 COND
+para_insercao"]
+31 [tooltip="if chave_guardada == chave:
+    return posicao
+",color=green,label="31 IF
+If (+0)"]
+32 [tooltip="return posicao
+",color=green,style=filled, fillcolor="#E0E0E0", label="32 THEN
+Return (+0)"]
+35  [tooltip="chave_guardada == chave",color=green,label="35 COND
+chave_guardada == chave"]
+37 [tooltip="return primeira_removida
+",color=green,style=filled, fillcolor="#E0E0E0", label="37 THEN
+Return (+0)"]
+39 [tooltip="return None
+",color=green,style=filled, fillcolor="#E0E0E0", label="39 JOIN
+Return (+0)"]
+40  [tooltip="primeira_removida is not None",color=green,label="40 COND
+primeira_removida is not None"]
+41  [tooltip="para_insercao",color=green,label="41 COND
+para_insercao"]
+0 -> 1 [label="",color=green]
+5 -> 2 [label="T",color=green]
+1 -> 5 [label="while:cond",color=green]
+2 -> 6 [label="",color=green]
+10 -> 7 [label="T",color=green]
+10 -> 8 [label="F",color=green]
+6 -> 10 [label="cond",color=green]
+14 -> 11 [label="T",color=green]
+14 -> 12 [label="F",color=green]
+7 -> 14 [label="cond",color=green]
+18 -> 15 [label="T",color=green]
+11 -> 18 [label="cond",color=green]
+25 -> 22 [label="T",color=green]
+25 -> 23 [label="F",color=green]
+8 -> 25 [label="cond",color=green]
+29 -> 26 [label="T",color=green]
+30 -> 29 [label="T",color=green]
+22 -> 30 [label="cond",color=green]
+23 -> 31 [label="",color=green]
+35 -> 32 [label="T",color=green]
+31 -> 35 [label="cond",color=green]
+9 -> 1 [label="back",color=green]
+40 -> 37 [label="T",color=green]
+41 -> 40 [label="T",color=green]
+4 -> 41 [label="cond",color=green]
+5 -> 4 [label="while:done",color=green]
+18 -> 17 [label="",color=green]
+26 -> 9 [label="",color=green]
+29 -> 9 [label="",color=green]
+30 -> 9 [label="",color=green]
+35 -> 9 [label="",color=green]
+40 -> 39 [label="",color=green]
+41 -> 39 [label="",color=green]
+}

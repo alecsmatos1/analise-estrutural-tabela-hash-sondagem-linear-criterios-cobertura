@@ -1,0 +1,5 @@
+digraph { 
+0 [tooltip="return self.quantidade
+",color=green,style=filled, fillcolor="#E0E0E0", label="0 BB
+Return (+0)"]
+}

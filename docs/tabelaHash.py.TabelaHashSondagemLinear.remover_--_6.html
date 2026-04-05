@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CFG — tabelaHash.py.TabelaHashSondagemLinear.remover -- 6</title>
+<style>
+  :root {
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", "Noto Sans", "Liberation Sans", sans-serif;
+    --bg: #0b0d10;
+    --panel: #12161c;
+    --text: #e6edf3;
+    --muted: #9fb0c0;
+    --border: #263040;
+    --link: #7cc7ff;
+    --codebg: #0f1318;
+  }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { padding: 16px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .muted { color: var(--muted); }
+  pre, code { font-family: var(--mono); }
+  pre {
+    background: var(--codebg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    overflow: auto;
+    line-height: 1.35;
+    font-size: 13px;
+    margin: 0;
+  }
+  .btn {
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #0f1318;
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
+  }
+  .btn:hover { filter: brightness(1.1); }
+</style>
+
+</head>
+<body>
+
+<div class="wrap">
+  <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px; flex-wrap: wrap;">
+    <a href="index.html">← Back</a>
+    <span class="muted">tabelaHash.py</span>
+    <span style="opacity:.4;">|</span>
+    <strong>tabelaHash.py.TabelaHashSondagemLinear.remover -- 6</strong>
+  </div>
+
+  <div class="grid">
+    <div class="codepanel card">
+      <div class="toolbar">
+        <span class="muted">Source</span>
+      </div>
+      <pre>def remover(self, chave):
+    &quot;&quot;&quot;
+        Remove logicamente uma chave da tabela.
+
+        A remoÃ§Ã£o Ã© &quot;lÃ³gica&quot; porque colocamos um marcador especial
+        em vez de simplesmente usar None.
+        &quot;&quot;&quot;
+    posicao = self._procurar_posicao(chave, para_insercao=False)
+    if posicao is None:
+        raise KeyError(f&#x27;Chave nÃ£o encontrada: {chave}&#x27;)
+    self.tabela[posicao] = REMOVIDO
+    self.quantidade -= 1</pre>
+    </div>
+
+    
+<div class="graphpanel card">
+  <div class="toolbar">
+    <span class="muted">CFG (.dot)</span>
+  </div>
+  <div class="graphsplit">
+    <pre>digraph { 
+0 [tooltip=&quot;\&#x27;\n        Remove logicamente uma chave da tabela.\n\n        A remoÃ§Ã£o Ã© \&quot;lÃ³gica\&quot; porque colocamos um marcador especial\n        em vez de simplesmente usar None.\n        \&#x27;
+posicao = self._procurar_posicao(chave, para_insercao=False)
+&quot;,color=green,label=&quot;0 BB
+Expr (+1)&quot;]
+1 [tooltip=&quot;if posicao is None:
+    raise KeyError(f\&#x27;Chave nÃ£o encontrada: {chave}\&#x27;)
+&quot;,color=green,label=&quot;1 IF
+If (+0)&quot;]
+2 [tooltip=&quot;raise KeyError(f\&#x27;Chave nÃ£o encontrada: {chave}\&#x27;)
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;2 THEN
+Raise (+0)&quot;]
+4 [tooltip=&quot;self.tabela[posicao] = REMOVIDO
+self.quantidade -= 1
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;4 JOIN
+Assign (+1)&quot;]
+5  [tooltip=&quot;posicao is None&quot;,color=green,label=&quot;5 COND
+posicao is None&quot;]
+0 -&gt; 1 [label=&quot;&quot;,color=green]
+5 -&gt; 2 [label=&quot;T&quot;,color=green]
+1 -&gt; 5 [label=&quot;cond&quot;,color=green]
+5 -&gt; 4 [label=&quot;&quot;,color=green]
+}
+</pre>
+    <div class="covpanel">
+<div class="covgroup">
+  <div class="covtitle">Blocks</div>
+  <div><span class="covlabel">Covered:</span> 0, 1, 2, 4, 5</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Edges</div>
+  <div><span class="covlabel">Covered:</span> (0, 1), (5, 2), (1, 5), (5, 4)</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Essential arcs</div>
+  <div><span class="covlabel">Covered:</span> (5, 2), (5, 4)</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Edge Pairs</div>
+  <div><span class="covlabel">Covered:</span> (0, 1, 5), (1, 5, 2), (1, 5, 4)</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Prime Paths</div>
+  <div><span class="covlabel">Covered:</span> (0, 1, 5, 2), (0, 1, 5, 4)</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+</div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 1000px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  .toolbar {
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .codepanel, .graphpanel { overflow: hidden; }
+  .graphsplit {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 0;
+    align-items: start;
+  }
+  @media (max-width: 1200px) {
+    .graphsplit {
+      grid-template-columns: 1fr;
+    }
+  }
+  .viewport {
+    height: calc(100vh - 185px);
+    overflow: auto;
+    padding: 10px;
+  }
+  .canvas {
+    transform-origin: 0 0;
+  }
+  .canvas svg {
+    max-width: none;
+    height: auto;
+  }
+  .toolbuttons { display:flex; gap:8px; }
+  .covpanel {
+    border-left: 1px solid var(--border);
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 1200px) {
+    .covpanel {
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+  }
+  .covgroup + .covgroup {
+    margin-top: 18px;
+  }
+  .covtitle {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .covlabel {
+    display: inline-block;
+    min-width: 72px;
+    color: var(--text);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  let scale = 1.0;
+  function applyScale() {
+    const el = document.getElementById('graphCanvas');
+    if (!el) return;
+    el.style.transform = 'scale(' + scale.toFixed(3) + ')';
+  }
+  function zoomIn() { scale = Math.min(6.0, scale * 1.15); applyScale(); }
+  function zoomOut() { scale = Math.max(0.2, scale / 1.15); applyScale(); }
+  function zoomReset() { scale = 1.0; applyScale(); }
+
+  function onWheelZoom(ev) {
+    if (!ev.ctrlKey) return;
+    ev.preventDefault();
+    const delta = ev.deltaY;
+    if (delta < 0) zoomIn();
+    else zoomOut();
+  }
+  applyScale();
+</script>
+
+</body>
+</html>

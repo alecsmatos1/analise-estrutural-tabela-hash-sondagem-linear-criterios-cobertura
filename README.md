@@ -67,3 +67,17 @@ python -m pytest
 
 - A funcao hash foi mantida simples e previsivel para fins didaticos.
 - Arquivos como PDFs, DOCX, HTML gerado, dependencias vendorizadas e scripts auxiliares de medicao nao fazem parte do commit principal.
+
+## GitHub Pages
+
+O repositorio pode publicar a visualizacao HTML da analise estrutural usando a pasta `docs/`.
+
+Depois de enviar o repositorio ao GitHub:
+
+1. Abra `Settings > Pages`.
+2. Em `Build and deployment`, escolha `Deploy from a branch`.
+3. Selecione a branch `main`.
+4. Selecione a pasta `/docs`.
+5. Salve a configuracao.
+
+Quando o Pages for ativado, a pagina inicial sera `docs/index.html`.

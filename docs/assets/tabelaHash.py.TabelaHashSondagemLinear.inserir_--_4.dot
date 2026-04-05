@@ -1,0 +1,49 @@
+digraph { 
+0 [tooltip="\'\n        Insere um novo par (chave, valor) na tabela.\n\n        Se a chave jÃ¡ existir, apenas atualiza o valor.\n        \'
+posicao = self._procurar_posicao(chave, para_insercao=True)
+",color=green,label="0 BB
+Expr (+1)"]
+1 [tooltip="if posicao is None:
+    raise OverflowError(\'Tabela hash cheia.\')
+",color=green,label="1 IF
+If (+0)"]
+2 [tooltip="raise OverflowError(\'Tabela hash cheia.\')
+",color=green,style=filled, fillcolor="#E0E0E0", label="2 THEN
+Raise (+0)"]
+4 [tooltip="entrada_atual = self.tabela[posicao]
+",color=green,label="4 JOIN
+Assign (+0)"]
+5  [tooltip="posicao is None",color=green,label="5 COND
+posicao is None"]
+7 [tooltip="if entrada_atual is None or entrada_atual is REMOVIDO:
+    self.tabela[posicao] = (chave, valor)
+    self.quantidade += 1
+else:
+    self.tabela[posicao] = (chave, valor)
+",color=green,label="7 IF
+If (+0)"]
+8 [tooltip="self.tabela[posicao] = (chave, valor)
+self.quantidade += 1
+",color=green,label="8 THEN
+Assign (+1)"]
+9 [tooltip="self.tabela[posicao] = (chave, valor)
+",color=green,label="9 ELSE
+Assign (+0)"]
+10  [shape=triangle,style=filled, fillcolor=yellow,label="EXIT"]
+11  [tooltip="entrada_atual is REMOVIDO",color=green,label="11 COND
+entrada_atual is REMOVIDO"]
+12  [tooltip="entrada_atual is None",color=green,label="12 COND
+entrada_atual is None"]
+0 -> 1 [label="",color=green]
+5 -> 2 [label="T",color=green]
+1 -> 5 [label="cond",color=green]
+4 -> 7 [label="",color=green]
+11 -> 8 [label="T",color=green]
+11 -> 9 [label="F",color=green]
+12 -> 8 [label="T",color=green]
+12 -> 11 [label="F",color=green]
+7 -> 12 [label="cond",color=green]
+8 -> 10 [style=dotted]
+9 -> 10 [style=dotted]
+5 -> 4 [label="",color=green]
+}

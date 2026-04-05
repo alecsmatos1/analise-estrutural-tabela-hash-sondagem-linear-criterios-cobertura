@@ -1,0 +1,67 @@
+digraph { 
+0 [tooltip="\'\n        Gera uma representaÃ§Ã£o textual da tabela,\n        Ãºtil para depuraÃ§Ã£o e demonstraÃ§Ã£o em aula.\n        \'
+linhas = []
+",color=green,label="0 BB
+Expr (+1)"]
+1 [tooltip="for i, entrada in enumerate(self.tabela):
+    if entrada is None:
+        linhas.append(f\'{i}: VAZIO\')
+    elif entrada is REMOVIDO:
+        linhas.append(f\'{i}: REMOVIDO\')
+    else:
+        chave, valor = entrada
+        linhas.append(f\'{i}: {chave} -> {valor}\')
+",color=green,label="1 FOR_PRE
+For (+0)"]
+2 [tooltip="",color=green,label="2 FOR_ITER
+For (+0)"]
+3 [tooltip="if entrada is None:
+    linhas.append(f\'{i}: VAZIO\')
+elif entrada is REMOVIDO:
+    linhas.append(f\'{i}: REMOVIDO\')
+else:
+    chave, valor = entrada
+    linhas.append(f\'{i}: {chave} -> {valor}\')
+",color=green,label="3 IF
+If (+0)"]
+4 [tooltip="return \'\n\'.join(linhas)
+",color=green,style=filled, fillcolor="#E0E0E0", label="4 FOR_AFTER
+Return (+0)"]
+5 [tooltip="linhas.append(f\'{i}: VAZIO\')
+",color=green,label="5 THEN
+Expr (+0)"]
+6 [tooltip="if entrada is REMOVIDO:
+    linhas.append(f\'{i}: REMOVIDO\')
+else:
+    chave, valor = entrada
+    linhas.append(f\'{i}: {chave} -> {valor}\')
+",color=green,label="6 IF
+If (+0)"]
+8  [tooltip="entrada is None",color=green,label="8 COND
+entrada is None"]
+9 [tooltip="linhas.append(f\'{i}: REMOVIDO\')
+",color=green,label="9 THEN
+Expr (+0)"]
+10 [tooltip="chave, valor = entrada
+linhas.append(f\'{i}: {chave} -> {valor}\')
+",color=green,label="10 ELSE
+Assign (+1)"]
+12  [tooltip="entrada is REMOVIDO",color=green,label="12 COND
+entrada is REMOVIDO"]
+0 -> 1 [label="",color=green]
+1 -> 2 [label="for:iter",color=green]
+2 -> 3 [label="Next",color=green]
+8 -> 5 [label="T",color=green]
+8 -> 6 [label="F",color=green]
+3 -> 8 [label="cond",color=green]
+12 -> 9 [label="T",color=green]
+12 -> 10 [label="F",color=green]
+6 -> 12 [label="cond",color=green]
+2 -> 4 [label="Not_Next",color=red]
+5 -> 2 [label="next",color=green]
+5 -> 4 [label="No_Next",color=red]
+9 -> 2 [label="next",color=green]
+9 -> 4 [label="No_Next",color=red]
+10 -> 2 [label="next",color=red]
+10 -> 4 [label="No_Next",color=green]
+}

@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CFG — tabelaHash.py.TabelaHashSondagemLinear._procurar_posicao -- 3</title>
+<style>
+  :root {
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", "Noto Sans", "Liberation Sans", sans-serif;
+    --bg: #0b0d10;
+    --panel: #12161c;
+    --text: #e6edf3;
+    --muted: #9fb0c0;
+    --border: #263040;
+    --link: #7cc7ff;
+    --codebg: #0f1318;
+  }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { padding: 16px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .muted { color: var(--muted); }
+  pre, code { font-family: var(--mono); }
+  pre {
+    background: var(--codebg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    overflow: auto;
+    line-height: 1.35;
+    font-size: 13px;
+    margin: 0;
+  }
+  .btn {
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #0f1318;
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
+  }
+  .btn:hover { filter: brightness(1.1); }
+</style>
+
+</head>
+<body>
+
+<div class="wrap">
+  <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px; flex-wrap: wrap;">
+    <a href="index.html">← Back</a>
+    <span class="muted">tabelaHash.py</span>
+    <span style="opacity:.4;">|</span>
+    <strong>tabelaHash.py.TabelaHashSondagemLinear._procurar_posicao -- 3</strong>
+  </div>
+
+  <div class="grid">
+    <div class="codepanel card">
+      <div class="toolbar">
+        <span class="muted">Source</span>
+      </div>
+      <pre>def _procurar_posicao(self, chave, para_insercao=False):
+    &quot;&quot;&quot;
+        Procura a posiÃ§Ã£o de uma chave na tabela.
+
+        Se para_insercao=False:
+            - retorna o Ã\xadndice da chave, se ela existir;
+            - retorna None, se ela nÃ£o existir.
+
+        Se para_insercao=True:
+            - retorna o Ã\xadndice da prÃ³pria chave, se ela jÃ¡ existir;
+            - retorna a melhor posiÃ§Ã£o livre para inserir;
+            - retorna None, se nÃ£o houver posiÃ§Ã£o disponÃ\xadvel.
+
+        A sondagem Ã© linear:
+            pos, pos+1, pos+2, ... (com retorno ao inÃ\xadcio da tabela)
+        &quot;&quot;&quot;
+    posicao_inicial = self.funcao_hash(chave)
+    posicao = posicao_inicial
+    primeira_removida = None
+    passos = 0
+    while passos &lt; self.capacidade:
+        entrada = self.tabela[posicao]
+        if entrada is None:
+            if para_insercao:
+                if primeira_removida is not None:
+                    return primeira_removida
+                return posicao
+            else:
+                return None
+        elif entrada is REMOVIDO:
+            if para_insercao and primeira_removida is None:
+                primeira_removida = posicao
+        else:
+            chave_guardada, _ = entrada
+            if chave_guardada == chave:
+                return posicao
+        posicao = (posicao + 1) % self.capacidade
+        passos += 1
+    if para_insercao and primeira_removida is not None:
+        return primeira_removida
+    return None</pre>
+    </div>
+
+    
+<div class="graphpanel card">
+  <div class="toolbar">
+    <span class="muted">CFG (.dot)</span>
+  </div>
+  <div class="graphsplit">
+    <pre>digraph { 
+0 [tooltip=&quot;\&#x27;\n        Procura a posiÃ§Ã£o de uma chave na tabela.\n\n        Se para_insercao=False:\n            - retorna o Ã\xadndice da chave, se ela existir;\n            - retorna None, se ela nÃ£o existir.\n\n        Se para_insercao=True:\n            - retorna o Ã\xadndice da prÃ³pria chave, se ela jÃ¡ existir;\n            - retorna a melhor posiÃ§Ã£o livre para inserir;\n            - retorna None, se nÃ£o houver posiÃ§Ã£o disponÃ\xadvel.\n\n        A sondagem Ã© linear:\n            pos, pos+1, pos+2, ... (com retorno ao inÃ\xadcio da tabela)\n        \&#x27;
+posicao_inicial = self.funcao_hash(chave)
+posicao = posicao_inicial
+primeira_removida = None
+passos = 0
+&quot;,color=green,label=&quot;0 BB
+Expr (+4)&quot;]
+1 [tooltip=&quot;while passos &lt; self.capacidade:
+    entrada = self.tabela[posicao]
+    if entrada is None:
+        if para_insercao:
+            if primeira_removida is not None:
+                return primeira_removida
+            return posicao
+        else:
+            return None
+    elif entrada is REMOVIDO:
+        if para_insercao and primeira_removida is None:
+            primeira_removida = posicao
+    else:
+        chave_guardada, _ = entrada
+        if chave_guardada == chave:
+            return posicao
+    posicao = (posicao + 1) % self.capacidade
+    passos += 1
+&quot;,color=green,label=&quot;1 WHILE
+While (+0)&quot;]
+2 [tooltip=&quot;entrada = self.tabela[posicao]
+&quot;,color=green,label=&quot;2 WHILE_BODY
+Assign (+0)&quot;]
+4 [tooltip=&quot;if para_insercao and primeira_removida is not None:
+    return primeira_removida
+&quot;,color=green,label=&quot;4 IF
+If (+0)&quot;]
+5  [tooltip=&quot;passos &lt; self.capacidade&quot;,color=green,label=&quot;5 COND
+passos &lt; self.capacidade&quot;]
+6 [tooltip=&quot;if entrada is None:
+    if para_insercao:
+        if primeira_removida is not None:
+            return primeira_removida
+        return posicao
+    else:
+        return None
+elif entrada is REMOVIDO:
+    if para_insercao and primeira_removida is None:
+        primeira_removida = posicao
+else:
+    chave_guardada, _ = entrada
+    if chave_guardada == chave:
+        return posicao
+&quot;,color=green,label=&quot;6 IF
+If (+0)&quot;]
+7 [tooltip=&quot;if para_insercao:
+    if primeira_removida is not None:
+        return primeira_removida
+    return posicao
+else:
+    return None
+&quot;,color=green,label=&quot;7 IF
+If (+0)&quot;]
+8 [tooltip=&quot;if entrada is REMOVIDO:
+    if para_insercao and primeira_removida is None:
+        primeira_removida = posicao
+else:
+    chave_guardada, _ = entrada
+    if chave_guardada == chave:
+        return posicao
+&quot;,color=green,label=&quot;8 IF
+If (+0)&quot;]
+9 [tooltip=&quot;posicao = (posicao + 1) % self.capacidade
+passos += 1
+&quot;,color=green,label=&quot;9 JOIN
+Assign (+1)&quot;]
+10  [tooltip=&quot;entrada is None&quot;,color=green,label=&quot;10 COND
+entrada is None&quot;]
+11 [tooltip=&quot;if primeira_removida is not None:
+    return primeira_removida
+&quot;,color=green,label=&quot;11 IF
+If (+0)&quot;]
+12 [tooltip=&quot;return None
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;12 ELSE
+Return (+0)&quot;]
+14  [tooltip=&quot;para_insercao&quot;,color=green,label=&quot;14 COND
+para_insercao&quot;]
+15 [tooltip=&quot;return primeira_removida
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;15 THEN
+Return (+0)&quot;]
+17 [tooltip=&quot;return posicao
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;17 JOIN
+Return (+0)&quot;]
+18  [tooltip=&quot;primeira_removida is not None&quot;,color=green,label=&quot;18 COND
+primeira_removida is not None&quot;]
+22 [tooltip=&quot;if para_insercao and primeira_removida is None:
+    primeira_removida = posicao
+&quot;,color=green,label=&quot;22 IF
+If (+0)&quot;]
+23 [tooltip=&quot;chave_guardada, _ = entrada
+&quot;,color=green,label=&quot;23 ELSE
+Assign (+0)&quot;]
+25  [tooltip=&quot;entrada is REMOVIDO&quot;,color=green,label=&quot;25 COND
+entrada is REMOVIDO&quot;]
+26 [tooltip=&quot;primeira_removida = posicao
+&quot;,color=green,label=&quot;26 THEN
+Assign (+0)&quot;]
+29  [tooltip=&quot;primeira_removida is None&quot;,color=green,label=&quot;29 COND
+primeira_removida is None&quot;]
+30  [tooltip=&quot;para_insercao&quot;,color=green,label=&quot;30 COND
+para_insercao&quot;]
+31 [tooltip=&quot;if chave_guardada == chave:
+    return posicao
+&quot;,color=green,label=&quot;31 IF
+If (+0)&quot;]
+32 [tooltip=&quot;return posicao
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;32 THEN
+Return (+0)&quot;]
+35  [tooltip=&quot;chave_guardada == chave&quot;,color=green,label=&quot;35 COND
+chave_guardada == chave&quot;]
+37 [tooltip=&quot;return primeira_removida
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;37 THEN
+Return (+0)&quot;]
+39 [tooltip=&quot;return None
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;39 JOIN
+Return (+0)&quot;]
+40  [tooltip=&quot;primeira_removida is not None&quot;,color=green,label=&quot;40 COND
+primeira_removida is not None&quot;]
+41  [tooltip=&quot;para_insercao&quot;,color=green,label=&quot;41 COND
+para_insercao&quot;]
+0 -&gt; 1 [label=&quot;&quot;,color=green]
+5 -&gt; 2 [label=&quot;T&quot;,color=green]
+1 -&gt; 5 [label=&quot;while:cond&quot;,color=green]
+2 -&gt; 6 [label=&quot;&quot;,color=green]
+10 -&gt; 7 [label=&quot;T&quot;,color=green]
+10 -&gt; 8 [label=&quot;F&quot;,color=green]
+6 -&gt; 10 [label=&quot;cond&quot;,color=green]
+14 -&gt; 11 [label=&quot;T&quot;,color=green]
+14 -&gt; 12 [label=&quot;F&quot;,color=green]
+7 -&gt; 14 [label=&quot;cond&quot;,color=green]
+18 -&gt; 15 [label=&quot;T&quot;,color=green]
+11 -&gt; 18 [label=&quot;cond&quot;,color=green]
+25 -&gt; 22 [label=&quot;T&quot;,color=green]
+25 -&gt; 23 [label=&quot;F&quot;,color=green]
+8 -&gt; 25 [label=&quot;cond&quot;,color=green]
+29 -&gt; 26 [label=&quot;T&quot;,color=green]
+30 -&gt; 29 [label=&quot;T&quot;,color=green]
+22 -&gt; 30 [label=&quot;cond&quot;,color=green]
+23 -&gt; 31 [label=&quot;&quot;,color=green]
+35 -&gt; 32 [label=&quot;T&quot;,color=green]
+31 -&gt; 35 [label=&quot;cond&quot;,color=green]
+9 -&gt; 1 [label=&quot;back&quot;,color=green]
+40 -&gt; 37 [label=&quot;T&quot;,color=green]
+41 -&gt; 40 [label=&quot;T&quot;,color=green]
+4 -&gt; 41 [label=&quot;cond&quot;,color=green]
+5 -&gt; 4 [label=&quot;while:done&quot;,color=green]
+18 -&gt; 17 [label=&quot;&quot;,color=green]
+26 -&gt; 9 [label=&quot;&quot;,color=green]
+29 -&gt; 9 [label=&quot;&quot;,color=green]
+30 -&gt; 9 [label=&quot;&quot;,color=green]
+35 -&gt; 9 [label=&quot;&quot;,color=green]
+40 -&gt; 39 [label=&quot;&quot;,color=green]
+41 -&gt; 39 [label=&quot;&quot;,color=green]
+}
+</pre>
+    <div class="covpanel">
+<div class="covgroup">
+  <div class="covtitle">Blocks</div>
+  <div><span class="covlabel">Covered:</span> 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 17, 18, 22, 23, 25, 26, 29, 30, 31, 32, 35, 37, 39, 40, 41</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Edges</div>
+  <div><span class="covlabel">Covered:</span> (0, 1), (5, 2), (1, 5), (2, 6), (10, 7), (10, 8), (6, 10), (14, 11), (14, 12), (7, 14), (18, 15), (11, 18), (25, 22), (25, 23), (8, 25), (29, 26), (30, 29), (22, 30), (23, 31), (35, 32), (31, 35), (9, 1), (40, 37), (41, 40), (4, 41), (5, 4), (18, 17), (26, 9), (29, 9), (30, 9), (35, 9), (40, 39), (41, 39)</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Essential arcs</div>
+  <div><span class="covlabel">Covered:</span> (14, 12), (18, 15), (18, 17), (29, 26), (29, 9), (30, 9), (35, 32), (35, 9), (40, 37), (40, 39), (41, 39)</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Edge Pairs</div>
+  <div><span class="covlabel">Covered:</span> (0, 1, 5), (1, 5, 2), (1, 5, 4), (10, 7, 14), (10, 8, 25), (11, 18, 15), (11, 18, 17), (14, 11, 18), (2, 6, 10), (22, 30, 29), (22, 30, 9), (23, 31, 35), (25, 22, 30), (25, 23, 31), (26, 9, 1), (29, 26, 9), (29, 9, 1), (30, 29, 26), (30, 29, 9), (30, 9, 1), (31, 35, 32), (31, 35, 9), (35, 9, 1), (4, 41, 39), (4, 41, 40), (41, 40, 37), (41, 40, 39), (5, 2, 6), (5, 4, 41), (6, 10, 7), (6, 10, 8), (7, 14, 11), (7, 14, 12), (8, 25, 22), (8, 25, 23), (9, 1, 5)</div>
+  <div><span class="covlabel">Missed:</span> —</div>
+</div>
+
+<div class="covgroup">
+  <div class="covtitle">Prime Paths</div>
+  <div><span class="covlabel">Covered:</span> (0, 1, 5, 2, 6, 10, 7, 14, 11, 18, 17), (0, 1, 5, 2, 6, 10, 7, 14, 12), (0, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 26, 9), (0, 1, 5, 2, 6, 10, 8, 25, 22, 30, 9), (0, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35, 32), (0, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35, 9), (1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 26, 9, 1), (1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 9, 1), (1, 5, 2, 6, 10, 8, 25, 22, 30, 9, 1), (1, 5, 2, 6, 10, 8, 25, 23, 31, 35, 9, 1), (10, 8, 25, 22, 30, 29, 26, 9, 1, 5, 2, 6, 10), (10, 8, 25, 22, 30, 29, 9, 1, 5, 2, 6, 10), (10, 8, 25, 22, 30, 9, 1, 5, 2, 6, 10), (10, 8, 25, 23, 31, 35, 9, 1, 5, 2, 6, 10), (2, 6, 10, 8, 25, 22, 30, 29, 26, 9, 1, 5, 2), (2, 6, 10, 8, 25, 22, 30, 29, 9, 1, 5, 2), (2, 6, 10, 8, 25, 22, 30, 9, 1, 5, 2), (2, 6, 10, 8, 25, 23, 31, 35, 9, 1, 5, 2), (22, 30, 29, 26, 9, 1, 5, 2, 6, 10, 8, 25, 22), (23, 31, 35, 9, 1, 5, 2, 6, 10, 8, 25, 23), (25, 22, 30, 29, 26, 9, 1, 5, 2, 6, 10, 8, 25), (25, 22, 30, 29, 9, 1, 5, 2, 6, 10, 8, 25), (25, 22, 30, 9, 1, 5, 2, 6, 10, 8, 25), (25, 23, 31, 35, 9, 1, 5, 2, 6, 10, 8, 25), (29, 26, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29), (30, 29, 26, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30), (30, 29, 26, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35), (30, 29, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35), (30, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35), (31, 35, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31), (35, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35), (5, 2, 6, 10, 8, 25, 22, 30, 29, 26, 9, 1, 5), (5, 2, 6, 10, 8, 25, 22, 30, 29, 9, 1, 5), (5, 2, 6, 10, 8, 25, 22, 30, 9, 1, 5), (5, 2, 6, 10, 8, 25, 23, 31, 35, 9, 1, 5), (6, 10, 8, 25, 22, 30, 29, 26, 9, 1, 5, 2, 6), (6, 10, 8, 25, 22, 30, 29, 9, 1, 5, 2, 6), (6, 10, 8, 25, 22, 30, 9, 1, 5, 2, 6), (6, 10, 8, 25, 23, 31, 35, 9, 1, 5, 2, 6), (6, 10, 8, 25, 23, 31, 35, 9, 1, 5, 4, 41, 39), (6, 10, 8, 25, 23, 31, 35, 9, 1, 5, 4, 41, 40, 37), (6, 10, 8, 25, 23, 31, 35, 9, 1, 5, 4, 41, 40, 39), (8, 25, 22, 30, 29, 26, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 15), (8, 25, 22, 30, 29, 26, 9, 1, 5, 2, 6, 10, 8), (8, 25, 22, 30, 29, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 15), (8, 25, 22, 30, 29, 9, 1, 5, 2, 6, 10, 8), (8, 25, 22, 30, 9, 1, 5, 2, 6, 10, 7, 14, 12), (8, 25, 22, 30, 9, 1, 5, 2, 6, 10, 8), (8, 25, 23, 31, 35, 9, 1, 5, 2, 6, 10, 7, 14, 12), (8, 25, 23, 31, 35, 9, 1, 5, 2, 6, 10, 8), (9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 9), (9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35, 9)</div>
+  <div><span class="covlabel">Missed:</span> (0, 1, 5, 2, 6, 10, 7, 14, 11, 18, 15), (0, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 9), (0, 1, 5, 4, 41, 39), (0, 1, 5, 4, 41, 40, 37), (0, 1, 5, 4, 41, 40, 39), (22, 30, 29, 9, 1, 5, 2, 6, 10, 8, 25, 22), (22, 30, 9, 1, 5, 2, 6, 10, 8, 25, 22), (23, 31, 35, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30), (23, 31, 35, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29), (23, 31, 35, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 26), (26, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 26), (29, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29), (30, 29, 26, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35, 32), (30, 29, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30), (30, 29, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35, 32), (30, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30), (30, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35, 32), (6, 10, 8, 25, 22, 30, 29, 26, 9, 1, 5, 4, 41, 39), (6, 10, 8, 25, 22, 30, 29, 26, 9, 1, 5, 4, 41, 40, 37), (6, 10, 8, 25, 22, 30, 29, 26, 9, 1, 5, 4, 41, 40, 39), (6, 10, 8, 25, 22, 30, 29, 9, 1, 5, 4, 41, 39), (6, 10, 8, 25, 22, 30, 29, 9, 1, 5, 4, 41, 40, 37), (6, 10, 8, 25, 22, 30, 29, 9, 1, 5, 4, 41, 40, 39), (6, 10, 8, 25, 22, 30, 9, 1, 5, 4, 41, 39), (6, 10, 8, 25, 22, 30, 9, 1, 5, 4, 41, 40, 37), (6, 10, 8, 25, 22, 30, 9, 1, 5, 4, 41, 40, 39), (8, 25, 22, 30, 29, 26, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 17), (8, 25, 22, 30, 29, 26, 9, 1, 5, 2, 6, 10, 7, 14, 12), (8, 25, 22, 30, 29, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 17), (8, 25, 22, 30, 29, 9, 1, 5, 2, 6, 10, 7, 14, 12), (8, 25, 22, 30, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 15), (8, 25, 22, 30, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 17), (8, 25, 23, 31, 35, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 15), (8, 25, 23, 31, 35, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 17), (9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 26, 9), (9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 9)</div>
+</div>
+</div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 1000px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  .toolbar {
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .codepanel, .graphpanel { overflow: hidden; }
+  .graphsplit {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 0;
+    align-items: start;
+  }
+  @media (max-width: 1200px) {
+    .graphsplit {
+      grid-template-columns: 1fr;
+    }
+  }
+  .viewport {
+    height: calc(100vh - 185px);
+    overflow: auto;
+    padding: 10px;
+  }
+  .canvas {
+    transform-origin: 0 0;
+  }
+  .canvas svg {
+    max-width: none;
+    height: auto;
+  }
+  .toolbuttons { display:flex; gap:8px; }
+  .covpanel {
+    border-left: 1px solid var(--border);
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 1200px) {
+    .covpanel {
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+  }
+  .covgroup + .covgroup {
+    margin-top: 18px;
+  }
+  .covtitle {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .covlabel {
+    display: inline-block;
+    min-width: 72px;
+    color: var(--text);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  let scale = 1.0;
+  function applyScale() {
+    const el = document.getElementById('graphCanvas');
+    if (!el) return;
+    el.style.transform = 'scale(' + scale.toFixed(3) + ')';
+  }
+  function zoomIn() { scale = Math.min(6.0, scale * 1.15); applyScale(); }
+  function zoomOut() { scale = Math.max(0.2, scale / 1.15); applyScale(); }
+  function zoomReset() { scale = 1.0; applyScale(); }
+
+  function onWheelZoom(ev) {
+    if (!ev.ctrlKey) return;
+    ev.preventDefault();
+    const delta = ev.deltaY;
+    if (delta < 0) zoomIn();
+    else zoomOut();
+  }
+  applyScale();
+</script>
+
+</body>
+</html>

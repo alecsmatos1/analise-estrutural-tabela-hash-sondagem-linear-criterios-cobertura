@@ -1,0 +1,72 @@
+digraph { 
+0 [tooltip="\'\n        FunÃ§Ã£o de hash manual e previsÃ\xadvel.\n\n        Ideia:\n        - se a chave for string, somamos os cÃ³digos ASCII dos caracteres;\n        - se a chave for inteiro, usamos o prÃ³prio valor;\n        - caso contrÃ¡rio, convertemos para string e somamos os caracteres.\n\n        Isso NÃƒO Ã© ideal para uso real, mas Ã© Ã³timo para ensino,\n        porque permite prever facilmente onde cada chave serÃ¡ mapeada.\n        \'
+",color=green,label="0 BB
+Expr (+0)"]
+1 [tooltip="if isinstance(chave, int):
+    return chave % self.capacidade
+",color=green,label="1 IF
+If (+0)"]
+2 [tooltip="return chave % self.capacidade
+",color=green,style=filled, fillcolor="#E0E0E0", label="2 THEN
+Return (+0)"]
+4 [tooltip="if isinstance(chave, str):
+    soma = 0
+    for caractere in chave:
+        soma += ord(caractere)
+    return soma % self.capacidade
+",color=green,label="4 IF
+If (+0)"]
+5  [tooltip="isinstance(chave, int)",color=green,label="5 COND
+isinstance(chave, int)"]
+7 [tooltip="soma = 0
+",color=green,label="7 THEN
+Assign (+0)"]
+9 [tooltip="soma = 0
+",color=green,label="9 JOIN
+Assign (+0)"]
+10  [tooltip="isinstance(chave, str)",color=green,label="10 COND
+isinstance(chave, str)"]
+11 [tooltip="for caractere in chave:
+    soma += ord(caractere)
+",color=green,label="11 FOR_PRE
+For (+0)"]
+12 [tooltip="",color=green,label="12 FOR_ITER
+For (+0)"]
+13 [tooltip="soma += ord(caractere)
+",color=green,label="13 FOR_BODY
+AugAssign (+0)"]
+14 [tooltip="return soma % self.capacidade
+",color=green,style=filled, fillcolor="#E0E0E0", label="14 FOR_AFTER
+Return (+0)"]
+16 [tooltip="for caractere in str(chave):
+    soma += ord(caractere)
+",color=green,label="16 FOR_PRE
+For (+0)"]
+17 [tooltip="",color=green,label="17 FOR_ITER
+For (+0)"]
+18 [tooltip="soma += ord(caractere)
+",color=green,label="18 FOR_BODY
+AugAssign (+0)"]
+19 [tooltip="return soma % self.capacidade
+",color=green,style=filled, fillcolor="#E0E0E0", label="19 FOR_AFTER
+Return (+0)"]
+0 -> 1 [label="",color=green]
+5 -> 2 [label="T",color=green]
+1 -> 5 [label="cond",color=green]
+10 -> 7 [label="T",color=green]
+4 -> 10 [label="cond",color=green]
+7 -> 11 [label="",color=green]
+11 -> 12 [label="for:iter",color=green]
+12 -> 13 [label="Next",color=green]
+13 -> 12 [label="next",color=green]
+12 -> 14 [label="Not_Next",color=red]
+13 -> 14 [label="No_Next",color=green]
+9 -> 16 [label="",color=green]
+16 -> 17 [label="for:iter",color=green]
+17 -> 18 [label="Next",color=green]
+18 -> 17 [label="next",color=green]
+17 -> 19 [label="Not_Next",color=red]
+18 -> 19 [label="No_Next",color=green]
+5 -> 4 [label="",color=green]
+10 -> 9 [label="",color=green]
+}

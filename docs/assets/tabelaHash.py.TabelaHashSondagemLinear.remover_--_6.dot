@@ -1,0 +1,23 @@
+digraph { 
+0 [tooltip="\'\n        Remove logicamente uma chave da tabela.\n\n        A remoÃ§Ã£o Ã© \"lÃ³gica\" porque colocamos um marcador especial\n        em vez de simplesmente usar None.\n        \'
+posicao = self._procurar_posicao(chave, para_insercao=False)
+",color=green,label="0 BB
+Expr (+1)"]
+1 [tooltip="if posicao is None:
+    raise KeyError(f\'Chave nÃ£o encontrada: {chave}\')
+",color=green,label="1 IF
+If (+0)"]
+2 [tooltip="raise KeyError(f\'Chave nÃ£o encontrada: {chave}\')
+",color=green,style=filled, fillcolor="#E0E0E0", label="2 THEN
+Raise (+0)"]
+4 [tooltip="self.tabela[posicao] = REMOVIDO
+self.quantidade -= 1
+",color=green,style=filled, fillcolor="#E0E0E0", label="4 JOIN
+Assign (+1)"]
+5  [tooltip="posicao is None",color=green,label="5 COND
+posicao is None"]
+0 -> 1 [label="",color=green]
+5 -> 2 [label="T",color=green]
+1 -> 5 [label="cond",color=green]
+5 -> 4 [label="",color=green]
+}

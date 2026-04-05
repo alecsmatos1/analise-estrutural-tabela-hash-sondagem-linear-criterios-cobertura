@@ -1,0 +1,6 @@
+digraph { 
+0 [tooltip="\'\n        Devolve True se a chave estiver na tabela e False caso contrÃ¡rio.\n        \'
+return self._procurar_posicao(chave, para_insercao=False) is not None
+",color=green,style=filled, fillcolor="#E0E0E0", label="0 BB
+Expr (+1)"]
+}

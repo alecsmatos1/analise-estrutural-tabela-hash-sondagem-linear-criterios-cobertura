@@ -1,0 +1,40 @@
+digraph { 
+0 [tooltip="\'\n        Devolve uma lista com todas as chaves presentes na tabela.\n        \'
+resultado = []
+",color=green,label="0 BB
+Expr (+1)"]
+1 [tooltip="for entrada in self.tabela:
+    if entrada is not None and entrada is not REMOVIDO:
+        resultado.append(entrada[0])
+",color=green,label="1 FOR_PRE
+For (+0)"]
+2 [tooltip="",color=green,label="2 FOR_ITER
+For (+0)"]
+3 [tooltip="if entrada is not None and entrada is not REMOVIDO:
+    resultado.append(entrada[0])
+",color=green,label="3 IF
+If (+0)"]
+4 [tooltip="return resultado
+",color=green,style=filled, fillcolor="#E0E0E0", label="4 FOR_AFTER
+Return (+0)"]
+5 [tooltip="resultado.append(entrada[0])
+",color=green,label="5 THEN
+Expr (+0)"]
+8  [tooltip="entrada is not REMOVIDO",color=green,label="8 COND
+entrada is not REMOVIDO"]
+9  [tooltip="entrada is not None",color=green,label="9 COND
+entrada is not None"]
+0 -> 1 [label="",color=green]
+1 -> 2 [label="for:iter",color=green]
+2 -> 3 [label="Next",color=green]
+8 -> 5 [label="T",color=green]
+9 -> 8 [label="T",color=green]
+3 -> 9 [label="cond",color=green]
+2 -> 4 [label="Not_Next",color=red]
+5 -> 2 [label="next",color=red]
+5 -> 4 [label="No_Next",color=green]
+8 -> 2 [label="next",color=green]
+8 -> 4 [label="No_Next",color=red]
+9 -> 2 [label="next",color=green]
+9 -> 4 [label="No_Next",color=red]
+}
