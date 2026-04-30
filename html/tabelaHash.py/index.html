@@ -78,37 +78,57 @@
     <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.__init___--_1.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.__init__ -- 1"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.__init___--_1.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.__init___--_1.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        Cria uma tabela hash vazia com a capacidade indicada.\n        \&#x27;
+&quot;,color=green,label=&quot;0 BB
+Expr (+0)&quot;]
+1 [tooltip=&quot;if capacidade &lt;= 0:
+    raise ValueError(\&#x27;A capacidade deve ser maior que zero.\&#x27;)</pre></a>
   </div>
 </div>
 
 <div class="row card">
   <div class="left">
     <a class="funcname" href="tabelaHash.py.TabelaHashSondagemLinear.funcao_hash_--_2.html">tabelaHash.py.TabelaHashSondagemLinear.funcao_hash -- 2</a>
-    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>89%</strong></div><div>Essential arcs: <strong>71%</strong></div><div>Edge Pairs: <strong>82%</strong></div><div>Prime Paths: <strong>82%</strong></div></div>
+    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.funcao_hash_--_2.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.funcao_hash -- 2"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.funcao_hash_--_2.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.funcao_hash_--_2.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        FunÃ§Ã£o de hash manual e previsÃ\xadvel.\n\n        Ideia:\n        - se a chave for string, somamos os cÃ³digos ASCII dos caracteres;\n        - se a chave for inteiro, usamos o prÃ³prio valor;\n        - caso contrÃ¡rio, convertemos para string e somamos os caracteres.\n\n        Isso NÃƒO Ã© ideal para uso real, mas Ã© Ã³timo para ensino,\n        porque permite prever facilmente onde cada chave serÃ¡ mapeada.\n        \&#x27;
+&quot;,color=green,label=&quot;0 BB
+Expr (+0)&quot;]
+1 [tooltip=&quot;if isinstance(chave, int):
+    return chave % self.capacidade</pre></a>
   </div>
 </div>
 
 <div class="row card">
   <div class="left">
     <a class="funcname" href="tabelaHash.py.TabelaHashSondagemLinear._procurar_posicao_--_3.html">tabelaHash.py.TabelaHashSondagemLinear._procurar_posicao -- 3</a>
-    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>59%</strong></div></div>
+    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear._procurar_posicao_--_3.html" title="Open tabelaHash.py.TabelaHashSondagemLinear._procurar_posicao -- 3"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear._procurar_posicao_--_3.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear._procurar_posicao_--_3.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        Procura a posiÃ§Ã£o de uma chave na tabela.\n\n        Se para_insercao=False:\n            - retorna o Ã\xadndice da chave, se ela existir;\n            - retorna None, se ela nÃ£o existir.\n\n        Se para_insercao=True:\n            - retorna o Ã\xadndice da prÃ³pria chave, se ela jÃ¡ existir;\n            - retorna a melhor posiÃ§Ã£o livre para inserir;\n            - retorna None, se nÃ£o houver posiÃ§Ã£o disponÃ\xadvel.\n\n        A sondagem Ã© linear:\n            pos, pos+1, pos+2, ... (com retorno ao inÃ\xadcio da tabela)\n        \&#x27;
+posicao_inicial = self.funcao_hash(chave)
+posicao = posicao_inicial
+primeira_removida = None
+passos = 0</pre></a>
   </div>
 </div>
 
 <div class="row card">
   <div class="left">
     <a class="funcname" href="tabelaHash.py.TabelaHashSondagemLinear.inserir_--_4.html">tabelaHash.py.TabelaHashSondagemLinear.inserir -- 4</a>
-    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>80%</strong></div></div>
+    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.inserir_--_4.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.inserir -- 4"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.inserir_--_4.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.inserir_--_4.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        Insere um novo par (chave, valor) na tabela.\n\n        Se a chave jÃ¡ existir, apenas atualiza o valor.\n        \&#x27;
+posicao = self._procurar_posicao(chave, para_insercao=True)
+&quot;,color=green,label=&quot;0 BB
+Expr (+1)&quot;]
+1 [tooltip=&quot;if posicao is None:</pre></a>
   </div>
 </div>
 
@@ -118,7 +138,12 @@
     <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.buscar_--_5.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.buscar -- 5"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.buscar_--_5.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.buscar_--_5.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        Retorna o valor associado Ã\xa0 chave.\n\n        LanÃ§a KeyError se a chave nÃ£o existir.\n        \&#x27;
+posicao = self._procurar_posicao(chave, para_insercao=False)
+&quot;,color=green,label=&quot;0 BB
+Expr (+1)&quot;]
+1 [tooltip=&quot;if posicao is None:</pre></a>
   </div>
 </div>
 
@@ -128,7 +153,12 @@
     <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.remover_--_6.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.remover -- 6"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.remover_--_6.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.remover_--_6.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        Remove logicamente uma chave da tabela.\n\n        A remoÃ§Ã£o Ã© \&quot;lÃ³gica\&quot; porque colocamos um marcador especial\n        em vez de simplesmente usar None.\n        \&#x27;
+posicao = self._procurar_posicao(chave, para_insercao=False)
+&quot;,color=green,label=&quot;0 BB
+Expr (+1)&quot;]
+1 [tooltip=&quot;if posicao is None:</pre></a>
   </div>
 </div>
 
@@ -138,37 +168,57 @@
     <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.contem_--_7.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.contem -- 7"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.contem_--_7.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.contem_--_7.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        Devolve True se a chave estiver na tabela e False caso contrÃ¡rio.\n        \&#x27;
+return self._procurar_posicao(chave, para_insercao=False) is not None
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;0 BB
+Expr (+1)&quot;]
+}</pre></a>
   </div>
 </div>
 
 <div class="row card">
   <div class="left">
     <a class="funcname" href="tabelaHash.py.TabelaHashSondagemLinear.chaves_--_8.html">tabelaHash.py.TabelaHashSondagemLinear.chaves -- 8</a>
-    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>69%</strong></div><div>Essential arcs: <strong>43%</strong></div><div>Edge Pairs: <strong>56%</strong></div><div>Prime Paths: <strong>41%</strong></div></div>
+    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.chaves_--_8.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.chaves -- 8"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.chaves_--_8.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.chaves_--_8.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        Devolve uma lista com todas as chaves presentes na tabela.\n        \&#x27;
+resultado = []
+&quot;,color=green,label=&quot;0 BB
+Expr (+1)&quot;]
+1 [tooltip=&quot;for entrada in self.tabela:</pre></a>
   </div>
 </div>
 
 <div class="row card">
   <div class="left">
     <a class="funcname" href="tabelaHash.py.TabelaHashSondagemLinear.valores_--_9.html">tabelaHash.py.TabelaHashSondagemLinear.valores -- 9</a>
-    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>69%</strong></div><div>Essential arcs: <strong>43%</strong></div><div>Edge Pairs: <strong>56%</strong></div><div>Prime Paths: <strong>41%</strong></div></div>
+    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.valores_--_9.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.valores -- 9"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.valores_--_9.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.valores_--_9.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        Devolve uma lista com todos os valores presentes na tabela.\n        \&#x27;
+resultado = []
+&quot;,color=green,label=&quot;0 BB
+Expr (+1)&quot;]
+1 [tooltip=&quot;for entrada in self.tabela:</pre></a>
   </div>
 </div>
 
 <div class="row card">
   <div class="left">
     <a class="funcname" href="tabelaHash.py.TabelaHashSondagemLinear.itens_--_10.html">tabelaHash.py.TabelaHashSondagemLinear.itens -- 10</a>
-    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>69%</strong></div><div>Essential arcs: <strong>43%</strong></div><div>Edge Pairs: <strong>56%</strong></div><div>Prime Paths: <strong>41%</strong></div></div>
+    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.itens_--_10.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.itens -- 10"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.itens_--_10.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.itens_--_10.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        Devolve uma lista de pares (chave, valor) presentes na tabela.\n        \&#x27;
+resultado = []
+&quot;,color=green,label=&quot;0 BB
+Expr (+1)&quot;]
+1 [tooltip=&quot;for entrada in self.tabela:</pre></a>
   </div>
 </div>
 
@@ -178,17 +228,26 @@
     <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.__len___--_11.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.__len__ -- 11"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.__len___--_11.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.__len___--_11.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;return self.quantidade
+&quot;,color=green,style=filled, fillcolor=&quot;#E0E0E0&quot;, label=&quot;0 BB
+Return (+0)&quot;]
+}</pre></a>
   </div>
 </div>
 
 <div class="row card">
   <div class="left">
     <a class="funcname" href="tabelaHash.py.TabelaHashSondagemLinear.__str___--_12.html">tabelaHash.py.TabelaHashSondagemLinear.__str__ -- 12</a>
-    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>75%</strong></div><div>Essential arcs: <strong>43%</strong></div><div>Edge Pairs: <strong>62%</strong></div><div>Prime Paths: <strong>34%</strong></div></div>
+    <div class="covsummary"><div>Blocks: <strong>100%</strong></div><div>Edges: <strong>100%</strong></div><div>Essential arcs: <strong>100%</strong></div><div>Edge Pairs: <strong>100%</strong></div><div>Prime Paths: <strong>100%</strong></div></div>
   </div>
   <div class="right">
-    <a href="tabelaHash.py.TabelaHashSondagemLinear.__str___--_12.html" title="Open tabelaHash.py.TabelaHashSondagemLinear.__str__ -- 12"><img src="assets/tabelaHash.py.TabelaHashSondagemLinear.__str___--_12.png" class="thumb" alt="CFG thumbnail"/></a>
+    <a href="tabelaHash.py.TabelaHashSondagemLinear.__str___--_12.html"><pre class="dotthumb">digraph { 
+0 [tooltip=&quot;\&#x27;\n        Gera uma representaÃ§Ã£o textual da tabela,\n        Ãºtil para depuraÃ§Ã£o e demonstraÃ§Ã£o em aula.\n        \&#x27;
+linhas = []
+&quot;,color=green,label=&quot;0 BB
+Expr (+1)&quot;]
+1 [tooltip=&quot;for i, entrada in enumerate(self.tabela):</pre></a>
   </div>
 </div>
 

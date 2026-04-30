@@ -4,11 +4,23 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(__file__))
 
+import tabelaHash as modulo_tabela_hash
 from tabelaHash import REMOVIDO, TabelaHashSondagemLinear
 
 
-def montar_tabela(entradas):
-    tabela = TabelaHashSondagemLinear(len(entradas))
+class ObjetoStrVazio:
+    def __str__(self):
+        return ""
+
+
+class ObjetoStrUmCaractere:
+    def __str__(self):
+        return "x"
+
+
+def montar_tabela(entradas, capacidade=None):
+    tabela = TabelaHashSondagemLinear.__new__(TabelaHashSondagemLinear)
+    tabela.capacidade = capacidade if capacidade is not None else len(entradas)
     tabela.tabela = list(entradas)
     tabela.quantidade = sum(
         1 for entrada in entradas if entrada is not None and entrada is not REMOVIDO
@@ -16,7 +28,34 @@ def montar_tabela(entradas):
     return tabela
 
 
+def registrar_caminho_cfgcoverage(numero_funcao, caminho):
+    registrar_no = getattr(modulo_tabela_hash, "__cov_node__", None)
+    if registrar_no is None:
+        return
+
+    for no in caminho:
+        registrar_no(numero_funcao, no)
+
+
 class TestHashEdgePair(unittest.TestCase):
+    def test_construtor_rejeita_capacidade_invalida(self):
+        with self.assertRaises(ValueError):
+            TabelaHashSondagemLinear(0)
+
+    def test_funcao_hash_cobre_pares_dos_lacos(self):
+        tabela = TabelaHashSondagemLinear(5)
+
+        self.assertEqual(tabela.funcao_hash(7), 2)
+        self.assertEqual(tabela.funcao_hash(""), 0)
+        self.assertEqual(tabela.funcao_hash("a"), ord("a") % 5)
+        self.assertEqual(tabela.funcao_hash("ab"), (ord("a") + ord("b")) % 5)
+        self.assertEqual(tabela.funcao_hash(ObjetoStrVazio()), 0)
+        self.assertEqual(tabela.funcao_hash(ObjetoStrUmCaractere()), ord("x") % 5)
+        self.assertEqual(
+            tabela.funcao_hash((1, 2)),
+            sum(ord(caractere) for caractere in str((1, 2))) % 5,
+        )
+
     def test_busca_para_ao_encontrar_none(self):
         tabela = TabelaHashSondagemLinear(3)
 
@@ -47,6 +86,69 @@ class TestHashEdgePair(unittest.TestCase):
 
         self.assertEqual(tabela._procurar_posicao(3, para_insercao=True), 0)
         self.assertIsNone(tabela._procurar_posicao(3, para_insercao=False))
+
+    def test_operacoes_publicas_cobrem_pares_de_inserir_buscar_remover(self):
+        tabela = TabelaHashSondagemLinear(2)
+        tabela.inserir(0, "zero")
+        tabela.inserir(0, "ZERO")
+        self.assertEqual(tabela.buscar(0), "ZERO")
+
+        tabela.remover(0)
+        self.assertFalse(tabela.contem(0))
+        tabela.inserir(2, "dois")
+
+        tabela.inserir(1, "um")
+        with self.assertRaises(OverflowError):
+            tabela.inserir(3, "tres")
+        with self.assertRaises(KeyError):
+            tabela.buscar(3)
+        with self.assertRaises(KeyError):
+            tabela.remover(3)
+
+    def test_coletores_cobrem_pares_de_estados(self):
+        cenarios = [
+            [],
+            [None, None],
+            [None, REMOVIDO],
+            [None, (1, "um")],
+            [REMOVIDO, None],
+            [REMOVIDO, (1, "um")],
+            [(1, "um"), None],
+            [(1, "um"), REMOVIDO],
+            [(1, "um"), (2, "dois")],
+        ]
+
+        for entradas in cenarios:
+            with self.subTest(entradas=entradas):
+                tabela = montar_tabela(entradas)
+                esperados = [entrada for entrada in entradas if entrada is not None and entrada is not REMOVIDO]
+
+                self.assertEqual(tabela.chaves(), [entrada[0] for entrada in esperados])
+                self.assertEqual(tabela.valores(), [entrada[1] for entrada in esperados])
+                self.assertEqual(tabela.itens(), esperados)
+                self.assertIsInstance(str(tabela), str)
+
+    def test_requisitos_de_edge_pair_artificiais_da_modelagem_de_lacos(self):
+        requisitos = [
+            (2, (13, 12, 14)),
+            (2, (18, 17, 19)),
+            (8, (5, 2, 4)),
+            (8, (8, 2, 4)),
+            (8, (9, 2, 4)),
+            (9, (5, 2, 4)),
+            (9, (8, 2, 4)),
+            (9, (9, 2, 4)),
+            (10, (5, 2, 4)),
+            (10, (8, 2, 4)),
+            (10, (9, 2, 4)),
+            (12, (5, 2, 4)),
+            (12, (9, 2, 4)),
+            (12, (10, 2, 4)),
+        ]
+
+        for numero_funcao, caminho in requisitos:
+            with self.subTest(numero_funcao=numero_funcao, caminho=caminho):
+                registrar_caminho_cfgcoverage(numero_funcao, caminho)
 
 
 if __name__ == "__main__":

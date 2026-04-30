@@ -7,8 +7,19 @@ sys.path.insert(0, os.path.dirname(__file__))
 from tabelaHash import REMOVIDO, TabelaHashSondagemLinear
 
 
-def montar_tabela(entradas):
-    tabela = TabelaHashSondagemLinear(len(entradas))
+class ObjetoStrVazio:
+    def __str__(self):
+        return ""
+
+
+class ObjetoStrUmCaractere:
+    def __str__(self):
+        return "x"
+
+
+def montar_tabela(entradas, capacidade=None):
+    tabela = TabelaHashSondagemLinear.__new__(TabelaHashSondagemLinear)
+    tabela.capacidade = capacidade if capacidade is not None else len(entradas)
     tabela.tabela = list(entradas)
     tabela.quantidade = sum(
         1 for entrada in entradas if entrada is not None and entrada is not REMOVIDO

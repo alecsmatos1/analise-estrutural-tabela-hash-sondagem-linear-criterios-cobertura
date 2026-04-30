@@ -7,8 +7,19 @@ sys.path.insert(0, os.path.dirname(__file__))
 from tabelaHash import REMOVIDO, TabelaHashSondagemLinear
 
 
-def montar_tabela(entradas):
-    tabela = TabelaHashSondagemLinear(len(entradas))
+class ObjetoStrVazio:
+    def __str__(self):
+        return ""
+
+
+class ObjetoStrUmCaractere:
+    def __str__(self):
+        return "x"
+
+
+def montar_tabela(entradas, capacidade=None):
+    tabela = TabelaHashSondagemLinear.__new__(TabelaHashSondagemLinear)
+    tabela.capacidade = capacidade if capacidade is not None else len(entradas)
     tabela.tabela = list(entradas)
     tabela.quantidade = sum(
         1 for entrada in entradas if entrada is not None and entrada is not REMOVIDO
@@ -25,7 +36,11 @@ class TestHashDesvios(unittest.TestCase):
         tabela = TabelaHashSondagemLinear(5)
 
         self.assertEqual(tabela.funcao_hash(7), 2)
+        self.assertEqual(tabela.funcao_hash(""), 0)
+        self.assertEqual(tabela.funcao_hash("a"), ord("a") % 5)
         self.assertEqual(tabela.funcao_hash("ab"), (ord("a") + ord("b")) % 5)
+        self.assertEqual(tabela.funcao_hash(ObjetoStrVazio()), 0)
+        self.assertEqual(tabela.funcao_hash(ObjetoStrUmCaractere()), ord("x") % 5)
         self.assertEqual(
             tabela.funcao_hash((1, 2)),
             sum(ord(caractere) for caractere in str((1, 2))) % 5,
@@ -76,6 +91,11 @@ class TestHashDesvios(unittest.TestCase):
         self.assertEqual(tabela._procurar_posicao(3, para_insercao=True), 0)
         self.assertIsNone(tabela._procurar_posicao(3, para_insercao=False))
 
+    def test_procurar_posicao_nao_sobrescreve_primeira_removida(self):
+        tabela = montar_tabela([REMOVIDO, REMOVIDO, None])
+
+        self.assertEqual(tabela._procurar_posicao(0, para_insercao=True), 0)
+
     def test_chaves_valores_itens_e_str_ignoram_vazios_e_removidos(self):
         tabela = montar_tabela([None, REMOVIDO, (2, "dois")])
 
@@ -87,6 +107,31 @@ class TestHashDesvios(unittest.TestCase):
         self.assertIn("0: VAZIO", representacao)
         self.assertIn("1: REMOVIDO", representacao)
         self.assertIn("2: 2 -> dois", representacao)
+
+    def test_coletores_cobrem_laco_vazio_e_ultima_iteracao(self):
+        cenarios = [
+            ([], [], [], []),
+            ([None], [], [], []),
+            ([REMOVIDO], [], [], []),
+            ([(1, "um")], [1], ["um"], [(1, "um")]),
+            ([(1, "um"), (2, "dois")], [1, 2], ["um", "dois"], [(1, "um"), (2, "dois")]),
+        ]
+
+        for entradas, chaves, valores, itens in cenarios:
+            with self.subTest(entradas=entradas):
+                tabela = montar_tabela(entradas)
+
+                self.assertEqual(tabela.chaves(), chaves)
+                self.assertEqual(tabela.valores(), valores)
+                self.assertEqual(tabela.itens(), itens)
+
+    def test_str_cobre_laco_vazio_e_saidas_finais(self):
+        self.assertEqual(str(montar_tabela([])), "")
+        self.assertEqual(str(montar_tabela([None])), "0: VAZIO")
+        self.assertEqual(str(montar_tabela([REMOVIDO])), "0: REMOVIDO")
+        self.assertEqual(str(montar_tabela([(1, "um")])), "0: 1 -> um")
+        self.assertEqual(str(montar_tabela([(1, "um"), None])), "0: 1 -> um\n1: VAZIO")
+        self.assertEqual(str(montar_tabela([(1, "um"), REMOVIDO])), "0: 1 -> um\n1: REMOVIDO")
 
 
 if __name__ == "__main__":
