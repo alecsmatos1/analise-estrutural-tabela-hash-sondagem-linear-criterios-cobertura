@@ -1,10 +1,10 @@
 import os
 import sys
 import unittest
+from itertools import product
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-import tabelaHash as modulo_tabela_hash
 from tabelaHash import REMOVIDO, TabelaHashSondagemLinear
 
 
@@ -28,13 +28,30 @@ def montar_tabela(entradas, capacidade=None):
     return tabela
 
 
-def registrar_caminho_cfgcoverage(numero_funcao, caminho):
-    registrar_no = getattr(modulo_tabela_hash, "__cov_node__", None)
-    if registrar_no is None:
-        return
+def montar_tabela_por_padrao(padrao):
+    capacidade = len(padrao)
+    entradas = []
 
-    for no in caminho:
-        registrar_no(numero_funcao, no)
+    for indice, simbolo in enumerate(padrao):
+        if simbolo == "N":
+            entradas.append(None)
+        elif simbolo == "R":
+            entradas.append(REMOVIDO)
+        elif simbolo == "A":
+            entradas.append((indice, f"valor-{indice}"))
+        elif simbolo == "B":
+            entradas.append((indice + capacidade, f"valor-{indice + capacidade}"))
+        else:
+            raise ValueError(f"Simbolo desconhecido: {simbolo}")
+
+    return montar_tabela(entradas, capacidade=capacidade)
+
+
+def clonar_entrada(entrada):
+    if entrada is None or entrada is REMOVIDO:
+        return entrada
+    chave, valor = entrada
+    return chave, valor
 
 
 class TestHashPrimePaths(unittest.TestCase):
@@ -107,6 +124,70 @@ class TestHashPrimePaths(unittest.TestCase):
         self.assertEqual(tabela._procurar_posicao(2, para_insercao=False), 2)
         self.assertIsNone(tabela._procurar_posicao(5, para_insercao=False))
 
+    def test_procurar_posicao_explora_combinacoes_estruturais_reais(self):
+        for padrao in product("NRAB", repeat=4):
+            tabela = montar_tabela_por_padrao(padrao)
+
+            for chave in range(8):
+                for para_insercao in (False, True):
+                    with self.subTest(
+                        padrao="".join(padrao),
+                        chave=chave,
+                        para_insercao=para_insercao,
+                    ):
+                        posicao = tabela._procurar_posicao(
+                            chave,
+                            para_insercao=para_insercao,
+                        )
+
+                        if posicao is not None:
+                            self.assertGreaterEqual(posicao, 0)
+                            self.assertLess(posicao, tabela.capacidade)
+
+                            entrada = tabela.tabela[posicao]
+                            if not para_insercao:
+                                self.assertIsNotNone(entrada)
+                                self.assertIsNot(entrada, REMOVIDO)
+                                self.assertEqual(entrada[0], chave)
+
+    def test_procurar_posicao_explora_chaves_deslocadas_por_colisao(self):
+        entradas_possiveis = [
+            None,
+            REMOVIDO,
+            (0, "zero"),
+            (1, "um"),
+            (2, "dois"),
+            (3, "tres"),
+        ]
+
+        for entradas in product(entradas_possiveis, repeat=4):
+            tabela = montar_tabela(
+                [clonar_entrada(entrada) for entrada in entradas],
+                capacidade=4,
+            )
+
+            for chave in range(4):
+                for para_insercao in (False, True):
+                    with self.subTest(
+                        entradas=entradas,
+                        chave=chave,
+                        para_insercao=para_insercao,
+                    ):
+                        posicao = tabela._procurar_posicao(
+                            chave,
+                            para_insercao=para_insercao,
+                        )
+
+                        if posicao is not None:
+                            self.assertGreaterEqual(posicao, 0)
+                            self.assertLess(posicao, tabela.capacidade)
+
+                            entrada = tabela.tabela[posicao]
+                            if not para_insercao:
+                                self.assertIsNotNone(entrada)
+                                self.assertIsNot(entrada, REMOVIDO)
+                                self.assertEqual(entrada[0], chave)
+
     def test_inserir_cobre_caminhos_primos_publicos(self):
         tabela = TabelaHashSondagemLinear(2)
         tabela.inserir(0, "zero")
@@ -167,77 +248,6 @@ class TestHashPrimePaths(unittest.TestCase):
                 self.assertEqual(tabela.valores(), [entrada[1] for entrada in esperados])
                 self.assertEqual(tabela.itens(), esperados)
                 self.assertIsInstance(str(tabela), str)
-
-    def test_requisitos_de_prime_paths_artificiais_da_modelagem_cfgcoverage(self):
-        requisitos = [
-            (3, (0, 1, 5, 2, 6, 10, 7, 14, 11, 18, 15)),
-            (3, (0, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 9)),
-            (3, (0, 1, 5, 2, 6, 10, 8, 25, 22, 30, 9)),
-            (3, (0, 1, 5, 4, 41, 39)),
-            (3, (0, 1, 5, 4, 41, 40, 37)),
-            (3, (0, 1, 5, 4, 41, 40, 39)),
-            (3, (1, 5, 2, 6, 10, 8, 25, 22, 30, 9, 1)),
-            (3, (10, 8, 25, 22, 30, 9, 1, 5, 2, 6, 10)),
-            (3, (2, 6, 10, 8, 25, 22, 30, 9, 1, 5, 2)),
-            (3, (22, 30, 29, 9, 1, 5, 2, 6, 10, 8, 25, 22)),
-            (3, (22, 30, 9, 1, 5, 2, 6, 10, 8, 25, 22)),
-            (3, (23, 31, 35, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30)),
-            (3, (23, 31, 35, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29)),
-            (3, (23, 31, 35, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 26)),
-            (3, (25, 22, 30, 9, 1, 5, 2, 6, 10, 8, 25)),
-            (3, (26, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 26)),
-            (3, (29, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29)),
-            (3, (30, 29, 26, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35, 32)),
-            (3, (30, 29, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30)),
-            (3, (30, 29, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35)),
-            (3, (30, 29, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35, 32)),
-            (3, (30, 9, 1, 5, 2, 6, 10, 8, 25, 22, 30)),
-            (3, (30, 9, 1, 5, 2, 6, 10, 8, 25, 23, 31, 35, 32)),
-            (3, (6, 10, 8, 25, 22, 30, 29, 26, 9, 1, 5, 4, 41, 39)),
-            (3, (6, 10, 8, 25, 22, 30, 29, 26, 9, 1, 5, 4, 41, 40, 37)),
-            (3, (6, 10, 8, 25, 22, 30, 29, 26, 9, 1, 5, 4, 41, 40, 39)),
-            (3, (6, 10, 8, 25, 22, 30, 29, 9, 1, 5, 4, 41, 39)),
-            (3, (6, 10, 8, 25, 22, 30, 29, 9, 1, 5, 4, 41, 40, 37)),
-            (3, (6, 10, 8, 25, 22, 30, 29, 9, 1, 5, 4, 41, 40, 39)),
-            (3, (6, 10, 8, 25, 22, 30, 9, 1, 5, 2, 6)),
-            (3, (6, 10, 8, 25, 22, 30, 9, 1, 5, 4, 41, 39)),
-            (3, (6, 10, 8, 25, 22, 30, 9, 1, 5, 4, 41, 40, 37)),
-            (3, (6, 10, 8, 25, 22, 30, 9, 1, 5, 4, 41, 40, 39)),
-            (3, (6, 10, 8, 25, 23, 31, 35, 9, 1, 5, 4, 41, 39)),
-            (3, (8, 25, 22, 30, 29, 26, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 17)),
-            (3, (8, 25, 22, 30, 29, 26, 9, 1, 5, 2, 6, 10, 7, 14, 12)),
-            (3, (8, 25, 22, 30, 29, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 15)),
-            (3, (8, 25, 22, 30, 29, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 17)),
-            (3, (8, 25, 22, 30, 29, 9, 1, 5, 2, 6, 10, 7, 14, 12)),
-            (3, (8, 25, 22, 30, 29, 9, 1, 5, 2, 6, 10, 8)),
-            (3, (8, 25, 22, 30, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 15)),
-            (3, (8, 25, 22, 30, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 17)),
-            (3, (8, 25, 22, 30, 9, 1, 5, 2, 6, 10, 7, 14, 12)),
-            (3, (8, 25, 22, 30, 9, 1, 5, 2, 6, 10, 8)),
-            (3, (8, 25, 23, 31, 35, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 15)),
-            (3, (8, 25, 23, 31, 35, 9, 1, 5, 2, 6, 10, 7, 14, 11, 18, 17)),
-            (3, (8, 25, 23, 31, 35, 9, 1, 5, 2, 6, 10, 7, 14, 12)),
-            (3, (9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 26, 9)),
-            (3, (9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 29, 9)),
-            (3, (9, 1, 5, 2, 6, 10, 8, 25, 22, 30, 9)),
-            (4, (10,)),
-            (8, (9, 2, 4)),
-            (8, (9, 8, 2, 4)),
-            (8, (9, 8, 5, 2, 4)),
-            (9, (9, 2, 4)),
-            (9, (9, 8, 2, 4)),
-            (9, (9, 8, 5, 2, 4)),
-            (10, (9, 2, 4)),
-            (10, (9, 8, 2, 4)),
-            (10, (9, 8, 5, 2, 4)),
-            (12, (8, 5, 2, 4)),
-            (12, (8, 6, 12, 10, 2, 4)),
-            (12, (8, 6, 12, 9, 2, 4)),
-        ]
-
-        for numero_funcao, caminho in requisitos:
-            with self.subTest(numero_funcao=numero_funcao, caminho=caminho):
-                registrar_caminho_cfgcoverage(numero_funcao, caminho)
 
 
 if __name__ == "__main__":

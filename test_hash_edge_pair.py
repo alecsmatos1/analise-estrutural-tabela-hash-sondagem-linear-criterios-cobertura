@@ -4,7 +4,6 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-import tabelaHash as modulo_tabela_hash
 from tabelaHash import REMOVIDO, TabelaHashSondagemLinear
 
 
@@ -26,15 +25,6 @@ def montar_tabela(entradas, capacidade=None):
         1 for entrada in entradas if entrada is not None and entrada is not REMOVIDO
     )
     return tabela
-
-
-def registrar_caminho_cfgcoverage(numero_funcao, caminho):
-    registrar_no = getattr(modulo_tabela_hash, "__cov_node__", None)
-    if registrar_no is None:
-        return
-
-    for no in caminho:
-        registrar_no(numero_funcao, no)
 
 
 class TestHashEdgePair(unittest.TestCase):
@@ -127,28 +117,6 @@ class TestHashEdgePair(unittest.TestCase):
                 self.assertEqual(tabela.valores(), [entrada[1] for entrada in esperados])
                 self.assertEqual(tabela.itens(), esperados)
                 self.assertIsInstance(str(tabela), str)
-
-    def test_requisitos_de_edge_pair_artificiais_da_modelagem_de_lacos(self):
-        requisitos = [
-            (2, (13, 12, 14)),
-            (2, (18, 17, 19)),
-            (8, (5, 2, 4)),
-            (8, (8, 2, 4)),
-            (8, (9, 2, 4)),
-            (9, (5, 2, 4)),
-            (9, (8, 2, 4)),
-            (9, (9, 2, 4)),
-            (10, (5, 2, 4)),
-            (10, (8, 2, 4)),
-            (10, (9, 2, 4)),
-            (12, (5, 2, 4)),
-            (12, (9, 2, 4)),
-            (12, (10, 2, 4)),
-        ]
-
-        for numero_funcao, caminho in requisitos:
-            with self.subTest(numero_funcao=numero_funcao, caminho=caminho):
-                registrar_caminho_cfgcoverage(numero_funcao, caminho)
 
 
 if __name__ == "__main__":
